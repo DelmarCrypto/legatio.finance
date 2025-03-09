@@ -7,14 +7,42 @@
 
 body {
     font-family: 'Lora', serif;
-    background-color: #ecf0f1; /* Fond gris clair pour réduire la fatigue oculaire */
+    background-color: #ecf0f1;
     color: #34495e;
     line-height: 1.6;
 }
 
+/* Navbar */
+.navbar {
+    background-color: #2c3e50;
+    padding: 10px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1rem;
+    transition: color 0.3s;
+}
+
+.navbar a:hover {
+    color: #f1c40f;
+}
+
 /* Header */
 .header {
-    background-color: #2c3e50; /* Bleu-gris profond, harmonisé avec le fond */
+    background-color: #2c3e50;
     color: #fff;
     text-align: center;
     padding: 60px 20px;
@@ -54,6 +82,7 @@ body {
 .section {
     padding: 80px 0;
     text-align: center;
+    border-bottom: 1px solid #ddd;
 }
 
 .section h2 {
@@ -141,7 +170,7 @@ body {
 }
 
 .why-choose-item h3 {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     color: #2c3e50;
     margin-bottom: 10px;
 }
@@ -178,7 +207,7 @@ body {
 }
 
 .how-to-invest-step h3 {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     color: #2c3e50;
     margin-bottom: 10px;
 }
@@ -215,7 +244,7 @@ body {
 }
 
 .service-item h3 {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     color: #2c3e50;
     margin-bottom: 10px;
 }
@@ -275,21 +304,29 @@ body {
 }
 
 /* Témoignages */
-.testimonial-list {
+.testimonial-carousel {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 20px;
     justify-content: center;
+    overflow: hidden;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
-.testimonial-list p {
-    flex: 1;
-    min-width: 300px;
+.testimonial-carousel p {
+    flex: 0 0 300px;
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     color: #34495e;
+    opacity: 0.3;
+    transition: opacity 0.5s;
+}
+
+.testimonial-carousel p:first-child {
+    opacity: 1;
 }
 
 .certifications {
@@ -321,7 +358,7 @@ body {
 }
 
 .timeline-item h3 {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     color: #2c3e50;
     margin-bottom: 10px;
 }
@@ -353,13 +390,31 @@ body {
 }
 
 .faq-item h3 {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     color: #2c3e50;
     margin-bottom: 10px;
 }
 
 .faq-item p {
     color: #34495e;
+}
+
+/* Apprendre */
+.learn {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin: 0 20px;
+}
+
+.learn a {
+    color: #f1c40f;
+    text-decoration: none;
+}
+
+.learn a:hover {
+    color: #d4a017;
 }
 
 /* Investisseurs */
@@ -448,8 +503,26 @@ body {
     color: #d4a017;
 }
 
+.back-to-top {
+    display: inline-block;
+    margin-top: 10px;
+    color: #f1c40f;
+    text-decoration: none;
+    font-size: 1.5rem;
+    transition: color 0.3s;
+}
+
+.back-to-top:hover {
+    color: #d4a017;
+}
+
 /* Responsivité */
 @media (max-width: 768px) {
+    .navbar ul {
+        flex-direction: column;
+        text-align: center;
+    }
+
     .header-content h1 {
         font-size: 2rem;
     }
@@ -462,7 +535,7 @@ body {
         font-size: 2rem;
     }
 
-    .simulator-form {
+    .simulator-form, .learn {
         flex-direction: column;
         align-items: center;
     }
@@ -471,7 +544,7 @@ body {
         width: 200px;
     }
 
-    .before-after, .why-choose-list, .how-to-invest-steps, .service-list, .timeline, .testimonial-list, .faq-list {
+    .before-after, .why-choose-list, .how-to-invest-steps, .service-list, .timeline, .testimonial-carousel, .faq-list {
         flex-direction: column;
     }
 }
