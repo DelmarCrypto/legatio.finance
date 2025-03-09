@@ -435,8 +435,9 @@ body {
     font-weight: 700;
     transition: all 0.3s ease;
     font-family: 'Roboto', sans-serif;
-    min-width: 200px;
+    min-width: 220px; /* Ajusté pour une largeur uniforme */
     text-align: center;
+    white-space: nowrap; /* Empêche le texte de passer à la ligne */
 }
 
 .cta-button:hover {
@@ -657,5 +658,9 @@ body {
     .modal-content {
         margin: 20% auto;
         max-width: 90%;
+    }
+
+    .investor-buttons .cta-button {
+        min-width: 180px; /* Ajustement pour mobile */
     }
 }
