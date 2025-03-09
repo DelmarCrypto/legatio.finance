@@ -417,6 +417,8 @@ body {
     color: #d4a017;
 }
 
+/* ... (reste du CSS inchangé jusqu'à "Investisseurs") ... */
+
 /* Investisseurs */
 .investor-buttons {
     display: flex;
@@ -435,6 +437,8 @@ body {
     font-weight: 700;
     transition: all 0.3s ease;
     font-family: 'Roboto', sans-serif;
+    min-width: 200px;
+    text-align: center;
 }
 
 .cta-button:hover {
@@ -442,6 +446,92 @@ body {
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(241, 196, 15, 0.3);
 }
+
+/* Modale */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: #2c3e50;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-modal:hover {
+    color: #f1c40f;
+}
+
+.modal-content h2 {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.modal-content p {
+    color: #34495e;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    color: #34495e;
+}
+
+.form-group textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #f1c40f;
+    box-shadow: 0 0 5px rgba(241, 196, 15, 0.3);
+}
+
+/* ... (reste du CSS inchangé) ... */
 
 /* ... (reste du CSS inchangé jusqu'à "Restez Informé") ... */
 
