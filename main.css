@@ -1,0 +1,495 @@
+/* Reset des styles par défaut */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lora', serif;
+    background-color: #f9f9f9;
+    color: #34495e;
+    line-height: 1.6;
+}
+
+/* Header */
+.header {
+    background-color: #2c3e50;
+    color: #fff;
+    text-align: center;
+    padding: 60px 20px;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-content h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.header-content p {
+    font-size: 1.3rem;
+    max-width: 800px;
+    margin: 0 auto 20px;
+}
+
+.header-content .cta-button {
+    font-size: 1.1rem;
+    padding: 12px 30px;
+}
+
+/* Conteneur principal */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Sections */
+.section {
+    padding: 80px 0;
+    text-align: center;
+}
+
+.section h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.section h2::after {
+    content: '';
+    width: 50px;
+    height: 3px;
+    background-color: #f1c40f;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Avant / Après */
+.before-after {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+.before, .after {
+    flex: 1;
+    min-width: 300px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.before:hover, .after:hover {
+    transform: translateY(-5px);
+}
+
+.before h3, .after h3 {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.before ul, .after ul {
+    list-style: none;
+    text-align: left;
+}
+
+.before ul li, .after ul li {
+    margin-bottom: 10px;
+    color: #34495e;
+}
+
+/* Pourquoi choisir */
+.why-choose-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+.why-choose-item {
+    flex: 1;
+    min-width: 250px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.why-choose-item:hover {
+    transform: translateY(-5px);
+}
+
+.why-choose-item i {
+    color: #f1c40f;
+    margin-bottom: 15px;
+}
+
+.why-choose-item h3 {
+    font-size: 1.6rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.why-choose-item p {
+    color: #34495e;
+}
+
+/* Comment investir */
+.how-to-invest-steps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+.how-to-invest-step {
+    flex: 1;
+    min-width: 250px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.how-to-invest-step:hover {
+    transform: translateY(-5px);
+}
+
+.how-to-invest-step i {
+    color: #f1c40f;
+    margin-bottom: 15px;
+}
+
+.how-to-invest-step h3 {
+    font-size: 1.6rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.how-to-invest-step p {
+    color: #34495e;
+}
+
+/* Nos solutions */
+.service-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+.service-item {
+    flex: 1;
+    min-width: 250px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.service-item:hover {
+    transform: translateY(-5px);
+}
+
+.service-item i {
+    color: #f1c40f;
+    margin-bottom: 15px;
+}
+
+.service-item h3 {
+    font-size: 1.6rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.service-item p {
+    color: #34495e;
+}
+
+/* Simulateur */
+.simulator {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin: 0 20px;
+}
+
+.simulator-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.simulator-form label {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.simulator-form input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 120px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.simulator-form button {
+    padding: 10px 20px;
+    background-color: #f1c40f;
+    color: #2c3e50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background-color 0.3s;
+}
+
+.simulator-form button:hover {
+    background-color: #d4a017;
+}
+
+.simulator p {
+    font-size: 1.2rem;
+    color: #34495e;
+}
+
+/* Témoignages */
+.testimonial-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.testimonial-list p {
+    flex: 1;
+    min-width: 300px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    color: #34495e;
+}
+
+.partner-logos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.partner-logo {
+    max-width: 150px;
+    border-radius: 5px;
+    transition: transform 0.3s;
+}
+
+.partner-logo:hover {
+    transform: scale(1.05);
+}
+
+.certifications {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    margin-top: 10px;
+}
+
+/* Roadmap */
+.timeline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.timeline-item {
+    flex: 1;
+    min-width: 250px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.timeline-item:hover {
+    transform: translateY(-5px);
+}
+
+.timeline-item h3 {
+    font-size: 1.6rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.timeline-item p {
+    color: #34495e;
+}
+
+/* FAQ */
+.faq-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.faq-item {
+    flex: 1;
+    min-width: 300px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.faq-item:hover {
+    transform: translateY(-5px);
+}
+
+.faq-item h3 {
+    font-size: 1.6rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.faq-item p {
+    color: #34495e;
+}
+
+/* Investisseurs */
+.investor-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #f1c40f;
+    color: #2c3e50;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    font-family: 'Roboto', sans-serif;
+}
+
+.cta-button:hover {
+    background-color: #d4a017;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(241, 196, 15, 0.3);
+}
+
+/* Restez Informé */
+.stay-informed {
+    background-color: #2c3e50;
+    color: #fff;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+/* Footer */
+.footer {
+    background-color: #1a252f;
+    color: #ecf0f1;
+    padding: 30px 20px;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.social-links a {
+    color: #f1c40f;
+    margin: 0 15px;
+    font-size: 1.5rem;
+    transition: color 0.3s;
+}
+
+.social-links a:hover {
+    color: #d4a017;
+}
+
+.footer-links a {
+    color: #f1c40f;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: #d4a017;
+}
+
+.footer-contact p {
+    margin: 10px 0;
+}
+
+.footer-contact a {
+    color: #f1c40f;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-contact a:hover {
+    color: #d4a017;
+}
+
+/* Responsivité */
+@media (max-width: 768px) {
+    .header-content h1 {
+        font-size: 2rem;
+    }
+
+    .header-content p {
+        font-size: 1rem;
+    }
+
+    .section h2 {
+        font-size: 2rem;
+    }
+
+    .simulator-form {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .simulator-form input {
+        width: 200px;
+    }
+
+    .before-after, .why-choose-list, .how-to-invest-steps, .service-list, .timeline, .testimonial-list, .faq-list {
+        flex-direction: column;
+    }
+}
