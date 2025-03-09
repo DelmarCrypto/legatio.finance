@@ -196,133 +196,38 @@
             <p>Découvrez des guides pour débutants : <a href="#">Qu’est-ce qu’un NFT immobilier ?</a></p>
         </div>
 
-        <!-- ... (reste du HTML inchangé jusqu'à "Pour les Investisseurs") ... -->
-
-<div id="investors" class="section investors">
-    <h2>Pour les Investisseurs</h2>
-    <p>Explorez notre vision innovante.</p>
-    <div class="investor-buttons">
-        <a href="./PitchDeck.pdf" class="cta-button" target="_blank" aria-label="Télécharger le Pitch Deck">Pitch Deck</a>
-        <a href="./WhitePaper.pdf" class="cta-button" target="_blank" aria-label="Télécharger le White Paper">White Paper</a>
-        <a href="#" class="cta-button" id="open-demo-modal" aria-label="Demander une démo">Demander une Démo</a>
-    </div>
-</div>
-
-<!-- ... (reste du HTML inchangé jusqu'à juste avant </body>) ... -->
-
-<!-- Modale pour la capture de leads -->
-<div id="demo-modal" class="modal">
-    <div class="modal-content">
-        <span class="close-modal" id="close-demo-modal">&times;</span>
-        <h2>Demander une Démo</h2>
-        <p>Remplissez le formulaire ci-dessous pour planifier une démo avec notre équipe.</p>
-        <form id="demo-form" action="https://formspree.io/f/your-form-id" method="POST">
-            <div class="form-group">
-                <label for="name">Nom :</label>
-                <input type="text" id="name" name="name" required placeholder="Votre nom">
+        <div id="investors" class="section investors">
+            <h2>Pour les Investisseurs</h2>
+            <p>Explorez notre vision innovante.</p>
+            <div class="investor-buttons">
+                <a href="./PitchDeck.pdf" class="cta-button" target="_blank" aria-label="Télécharger le Pitch Deck">Pitch Deck</a>
+                <a href="./WhitePaper.pdf" class="cta-button" target="_blank" aria-label="Télécharger le White Paper">White Paper</a>
+                <a href="#contact" class="cta-button" aria-label="Demander une démo">Demander une Démo</a>
             </div>
-            <div class="form-group">
-                <label for="email">Email :</label>
-                <input type="email" id="email" name="email" required placeholder="Votre email">
+        </div>
+
+        <div class="section stay-informed">
+            <h2>Rejoignez la Révolution</h2>
+            <p>Inscrivez-vous pour nos mises à jour.</p>
+            <a href="https://forms.zoho.eu/legatiofinancegm1/form/FormationLegatio" class="cta-button" target="_blank" aria-label="S’inscrire">S’inscrire</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="https://x.com/rdb_legend" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="https://discord.com/channels/1347668715357077577/1347668716120182888" target="_blank" aria-label="Discord"><i class="fab fa-discord"></i></a>
             </div>
-            <div class="form-group">
-                <label for="message">Message (optionnel) :</label>
-                <textarea id="message" name="message" placeholder="Dites-nous en plus..."></textarea>
+            <div class="footer-links">
+                <a href="#faq">FAQ</a> | <a href="https://www.linkedin.com/feed/" target="_blank">Mentions Légales</a>
             </div>
-            <button type="submit" class="cta-button">Envoyer</button>
-        </form>
-    </div>
-</div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        gsap.from(".section", { opacity: 0, y: 50, duration: 1, stagger: 0.3, scrollTrigger: { trigger: ".section", start: "top 90%" } });
-
-        const buttons = document.querySelectorAll('.cta-button');
-        buttons.forEach(button => {
-            button.addEventListener('click', () => {
-                gsap.to(button, { scale: 1.1, duration: 0.3, yoyo: true });
-            });
-        });
-
-        const carousel = document.querySelector('.testimonial-carousel');
-        let index = 0;
-        setInterval(() => {
-            gsap.to(carousel.children[index], { opacity: 0, duration: 0.5 });
-            index = (index + 1) % carousel.children.length;
-            gsap.fromTo(carousel.children[index], { opacity: 0 }, { opacity: 1, duration: 0.5 });
-        }, 5000);
-
-        document.querySelector('.back-to-top').addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        // Gestion de la modale
-        const modal = document.getElementById('demo-modal');
-        const openModalBtn = document.getElementById('open-demo-modal');
-        const closeModalBtn = document.getElementById('close-demo-modal');
-
-        openModalBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            modal.style.display = 'block';
-            gsap.fromTo(modal, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.3 });
-        });
-
-        closeModalBtn.addEventListener('click', () => {
-            gsap.to(modal, { opacity: 0, scale: 0.9, duration: 0.3, onComplete: () => {
-                modal.style.display = 'none';
-            } });
-        });
-
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                gsap.to(modal, { opacity: 0, scale: 0.9, duration: 0.3, onComplete: () => {
-                    modal.style.display = 'none';
-                } });
-            }
-        });
-    });
-
-    function calculateLoan() {
-        let amount = parseFloat(document.getElementById("loanAmount").value);
-        let duration = parseFloat(document.getElementById("duration").value);
-        let rate = parseFloat(document.getElementById("interestRate").value) / 100;
-        if (isNaN(amount) || amount <= 0 || isNaN(duration) || duration <= 0 || isNaN(rate) || rate < 0) {
-            document.getElementById("totalRepayment").innerText = "Entrées invalides";
-            return;
-        }
-        let total = amount * (1 + rate * (duration / 12));
-        document.getElementById("totalRepayment").innerText = total.toFixed(2);
-    }
-</script>
-</body>
-</html>
-
-<div class="section stay-informed">
-    <h2>Rejoignez la Révolution</h2>
-    <p>Inscrivez-vous pour nos mises à jour.</p>
-    <div class="stay-informed-actions">
-        <a href="https://forms.zoho.eu/legatiofinancegm1/form/FormationLegatio" class="cta-button" target="_blank" aria-label="S’inscrire">S’inscrire</a>
-    </div>
-</div>
-
-<footer class="footer">
-    <div class="footer-content">
-        <div class="social-links">
-            <a href="https://x.com/rdb_legend" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-            <a href="https://discord.com/channels/1347668715357077577/1347668716120182888" target="_blank" aria-label="Discord"><i class="fab fa-discord"></i></a>
+            <div class="footer-contact">
+                <p>Contact : <a href="mailto:legatio.finance@gmail.com">legatio.finance@gmail.com</a> | © 2025 Legatio Finance</p>
+                <a href="#" class="back-to-top" aria-label="Retour en haut">↑</a>
+            </div>
         </div>
-        <div class="footer-links">
-            <a href="#faq">FAQ</a> | <a href="https://www.linkedin.com/feed/" target="_blank">Mentions Légales</a>
-        </div>
-        <div class="footer-contact">
-            <p>Contact : <a href="mailto:legatio.finance@gmail.com">legatio.finance@gmail.com</a> | © 2025 Legatio Finance</p>
-        </div>
-        <a href="#" class="back-to-top" aria-label="Retour en haut">↑</a>
-    </div>
-</footer>
-
-<!-- ... (reste du script inchangé) ... -->
+    </footer>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
