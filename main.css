@@ -107,14 +107,14 @@ body {
 /* Avant / Après */
 .before-after {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* Permet de passer à la ligne si l'espace est insuffisant */
     gap: 30px;
     justify-content: center;
 }
 
 .before, .after {
     flex: 1;
-    min-width: 300px;
+    min-width: 300px; /* Largeur minimale pour éviter qu'elles ne soient trop étroites */
     background-color: #fff;
     padding: 30px;
     border-radius: 10px;
@@ -140,6 +140,36 @@ body {
 .before ul li, .after ul li {
     margin-bottom: 10px;
     color: #34495e;
+}
+
+/* Responsivité */
+@media (max-width: 768px) {
+    .before-after {
+        flex-direction: row; /* Garde les éléments côte à côte */
+        gap: 20px; /* Réduit l'espace entre les éléments sur mobile si nécessaire */
+    }
+
+    .before, .after {
+        min-width: 250px; /* Ajuste la largeur minimale pour mobile */
+    }
+
+    /* Autres ajustements pour les petits écrans */
+    .navbar ul {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .header-content h1 {
+        font-size: 2rem;
+    }
+
+    .header-content p {
+        font-size: 1rem;
+    }
+
+    .section h2 {
+        font-size: 2rem;
+    }
 }
 
 /* Pourquoi choisir */
