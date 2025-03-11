@@ -587,6 +587,24 @@
             immobilier: 1000
         };
 
+           // Prix crypto
+        async function fetchPrices() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,gold,ethereum&vs_currencies=usd');
+                const data = await response.json();
+                document.getElementById('btcPrice').textContent = `BTC: $${data.bitcoin?.usd || 'N/A'}`;
+                document.getElementById('goldPrice').textContent = `Or: $${data.gold?.usd || 'N/A'}`;
+                document.getElementById('silverPrice').textContent = `Argent: $${data.ethereum?.usd * 0.05 || 'N/A'}`; // Proxy fictif
+            } catch (error) {
+                console.error("Erreur lors de la récupération des prix:", error);
+                document.getElementById('btcPrice').textContent = 'BTC: N/A';
+                document.getElementById('goldPrice').textContent = 'Or: N/A';
+                document.getElementById('silverPrice').textContent = 'Argent: N/A';
+            }
+        }
+        fetchPrices();
+        setInterval(fetchPrices, 300000); // Mise à jour toutes les 5 minutes
+}
         function updateCollateralPrice() {
             const collateralType = document.getElementById('collateral-type').value;
             const price = prices[collateralType];
