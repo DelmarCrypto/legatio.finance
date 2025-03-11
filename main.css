@@ -342,21 +342,6 @@ body {
     margin-top: 20px;
 }
 
-/* Crypto Prices */
-.crypto-prices {
-    background-color: #fff;
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    margin: 0 20px;
-}
-
-.crypto-prices p {
-    font-size: 1.2rem;
-    color: #34495e;
-    margin: 10px 0;
-}
-
 /* Roadmap */
 .timeline {
     display: flex;
