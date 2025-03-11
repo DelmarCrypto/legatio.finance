@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graphique Rendement & Collatéral</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .tooltip {
+            position: absolute;
+            background: white;
+            border: 1px solid black;
+            padding: 5px;
+            display: none;
+            font-size: 12px;
+        }
+        .line {
+            fill: none;
+            stroke-width: 3;
+        }
+        .axis-label {
+            font-size: 14px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Graphique de Rendement & Flux de Collatéral</h2>
+    <svg width="600" height="400"></svg>
+    <div class="tooltip"></div>
+
+    <script>
+        // Dimensions du graphique
+        const width = 600, height = 400;
+        const margin = {top: 30, right: 30, bottom: 50, left: 60};
+
+        // Données fictives (à remplacer par des valeurs dynamiques)
+        const data = [
+            {time: "Jan", collateral: 5000, rendement: 3.5},
+            {time: "Fev", collateral: 7000, rendement: 4.2},
+            {time: "Mar", collateral: 8500, rendement: 4.8},
+            {time: "Avr", collateral: 11000, rendement: 5.3},
+            {time: "Mai", collateral: 13000, rendement: 6.1},
+            {time: "Juin", collateral: 16000, rendement: 6.7}
+        ];
+
+        // Création de l'échelle
+        const x = d3.scalePoint()
+            .domain(data.map(d => d.time))
+            .range([margin.left, width - margin.right]);
+
+        const yCollateral = d3.scaleLinear()
+            .domain([0, d3.max(data, d => d.collateral)]).nice()
+            .range([height - margin.bottom, margin.top]);
+
+        const yRendement = d3.scaleLinear()
+            .domain([0, d3.max(data, d => d.rendement)]).nice()
+            .range([height - margin.bottom, margin.top]);
+
+        // Création du SVG
+        const svg = d3.select("svg");
+
+        // Axes
+        svg.append("g")
+            .attr("transform", `translate(0,${height - margin.bottom})`)
+            .call(d3.axisBottom(x));
+
+        svg.append("g")
+            .attr("transform", `translate(${margin.left},0)`)
+            .call(d3.axisLeft(yCollateral).ticks(5));
+
+        svg.append("g")
+            .attr("transform", `translate(${width - margin.right},0)`)
+            .call(d3.axisRight(yRendement).ticks(5));
+
+        // Labels des axes
+        svg.append("text")
+            .attr("class", "axis-label")
+            .attr("x", width / 2)
+            .attr("y", height - 10)
+            .text("Temps");
+
+        svg.append("text")
+            .attr("class", "axis-label")
+            .attr("transform", "rotate(-90)")
+            .attr("x", -height / 2)
+            .attr("y", 15)
+            .text("Collatéral ($)");
+
+        svg.append("text")
+            .attr("class", "axis-label")
+            .attr("transform", "rotate(-90)")
+            .attr("x", -height / 2)
+            .attr("y", width - 10)
+            .text("Rendement (%)");
+
+        // Génération des lignes
+        const lineCollateral = d3.line()
+            .x(d => x(d.time))
+            .y(d => yCollateral(d.collateral));
+
+        const lineRendement = d3.line()
+            .x(d => x(d.time))
+            .y(d => yRendement(d.rendement));
+
+        svg.append("path")
+            .datum(data)
+            .attr("class", "line")
+            .attr("stroke", "#1E40AF")
+            .attr("d", lineCollateral)
+            .style("stroke-dasharray", function() { return this.getTotalLength(); })
+            .style("stroke-dashoffset", function() { return this.getTotalLength(); })
+            .transition()
+            .duration(2000)
+            .ease(d3.easeLinear)
+            .style("stroke-dashoffset", 0);
+
+        svg.append("path")
+            .datum(data)
+            .attr("class", "line")
+            .attr("stroke", "#FFD700")
+            .attr("d", lineRendement)
+            .style("stroke-dasharray", function() { return this.getTotalLength(); })
+            .style("stroke-dashoffset", function() { return this.getTotalLength(); })
+            .transition()
+            .duration(2000)
+            .ease(d3.easeLinear)
+            .style("stroke-dashoffset", 0);
+
+        // Ajout des points interactifs
+        const tooltip = d3.select(".tooltip");
+
+        svg.selectAll(".point-collateral")
+            .data(data)
+            .enter().append("circle")
+            .attr("class", "point-collateral")
+            .attr("cx", d => x(d.time))
+            .attr("cy", d => yCollateral(d.collateral))
+            .attr("r", 5)
+            .attr("fill", "#1E40AF")
+            .on("mouseover", (event, d) => {
+                tooltip.style("display", "block")
+                    .html(`Collatéral: $${d.collateral}`)
+                    .style("left", event.pageX + "px")
+                    .style("top", event.pageY - 30 + "px");
+            })
+            .on("mouseout", () => tooltip.style("display", "none"));
+
+        svg.selectAll(".point-rendement")
+            .data(data)
+            .enter().append("circle")
+            .attr("class", "point-rendement")
+            .attr("cx", d => x(d.time))
+            .attr("cy", d => yRendement(d.rendement))
+            .attr("r", 5)
+            .attr("fill", "#FFD700")
+            .on("mouseover", (event, d) => {
+                tooltip.style("display", "block")
+                    .html(`Rendement: ${d.rendement}%`)
+                    .style("left", event.pageX + "px")
+                    .style("top", event.pageY - 30 + "px");
+            })
+            .on("mouseout", () => tooltip.style("display", "none"));
+
+    </script>
+
+</body>
+</html>
