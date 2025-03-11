@@ -106,24 +106,27 @@ body {
 
 /* Avant / Après */
 .before-after {
-    /* Pas de changement ici, juste un conteneur */
+    /* Pas besoin de flex ici, on le met sur .before-after-content */
 }
 
 .before-after-content {
     display: flex;
-    flex-wrap: nowrap; /* Force les éléments côte à côte */
+    flex-direction: row; /* Force explicitement une disposition horizontale */
+    flex-wrap: nowrap; /* Empêche le retour à la ligne */
     gap: 30px;
     justify-content: center;
+    align-items: stretch; /* S'assure que les éléments ont la même hauteur */
 }
 
 .before, .after {
-    flex: 1;
-    min-width: 300px;
+    flex: 1 1 0; /* Force les éléments à prendre une largeur égale */
+    min-width: 300px; /* Largeur minimale pour éviter qu'ils ne rétrécissent trop */
     background-color: #fff;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s;
+    margin: 0; /* Supprime tout marge qui pourrait causer un décalage */
 }
 
 .before:hover, .after:hover {
@@ -656,11 +659,13 @@ body {
     }
 
     .before-after-content {
-        flex-wrap: wrap; /* Permet un retour à la ligne sur mobile si nécessaire */
+        flex-direction: row; /* Garde les éléments côte à côte même sur mobile */
+        flex-wrap: wrap; /* Permet un retour à la ligne si nécessaire */
         gap: 20px;
     }
 
     .before, .after {
+        flex: 1 1 0; /* Force les éléments à prendre une largeur égale */
         min-width: 250px; /* Ajuste la largeur minimale pour petits écrans */
     }
 
