@@ -106,8 +106,12 @@ body {
 
 /* Avant / Après */
 .before-after {
+    /* Pas de changement ici, juste un conteneur */
+}
+
+.before-after-content {
     display: flex;
-    flex-wrap: nowrap; /* Changé de wrap à nowrap pour forcer côte à côte */
+    flex-wrap: nowrap; /* Force les éléments côte à côte */
     gap: 30px;
     justify-content: center;
 }
@@ -651,9 +655,8 @@ body {
         width: 200px;
     }
 
-    /* Suppression de la règle qui forçait column pour .before-after */
-    .before-after {
-        flex-wrap: wrap; /* Remplace nowrap pour permettre un retour à la ligne si nécessaire */
+    .before-after-content {
+        flex-wrap: wrap; /* Permet un retour à la ligne sur mobile si nécessaire */
         gap: 20px;
     }
 
