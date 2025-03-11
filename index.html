@@ -16,7 +16,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <style>
-        /* Styles minimaux pour les nouvelles sections */
+        /* Styles existants */
         .crypto-prices {
             text-align: center;
             padding: 20px;
@@ -71,6 +71,43 @@
         }
         .cta-button:hover {
             background: #34495e;
+        }
+        /* Styles pour la nouvelle section Vente de Tokens */
+        .token-sale {
+            text-align: center;
+        }
+        .token-sale h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+        .token-sale-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .token-sale-item {
+            flex: 1;
+            min-width: 300px;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: left;
+        }
+        .token-sale-item h3 {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+        }
+        .token-sale-item ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        .token-sale-item p {
+            margin: 5px 0;
+        }
+        .token-sale-item .cta-button {
+            margin-top: 15px;
         }
     </style>
 </head>
@@ -181,6 +218,34 @@
                     <i class="fas fa-hand-holding-usd fa-2x"></i>
                     <h3>Prêts Crypto</h3>
                     <p>Emprunts sécurisés.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nouvelle section : Vente de Tokens -->
+        <div class="section token-sale">
+            <h2>Vente de Tokens</h2>
+            <div class="token-sale-container">
+                <div class="token-sale-item">
+                    <h3>Token LEG</h3>
+                    <p><strong>$LEG</strong> est le cœur de l’écosystème Legatio. Utilisez-le pour :</p>
+                    <ul>
+                        <li>Accéder aux prêts.</li>
+                        <li>Générer des rendements via staking (jusqu’à 5-7% annuel).</li>
+                        <li>Participer à la gouvernance.</li>
+                    </ul>
+                    <p><strong>Tokenomics :</strong></p>
+                    <p>Total Supply : 100 000 000 LEG</p>
+                    <p>Distribution : 40% Staking, 25% Liquidité, 20% Développement, 10% Équipe, 5% Partenariats.</p>
+                    <a href="#investors" class="cta-button" aria-label="Investir maintenant">Investir Maintenant</a>
+                </div>
+                <div class="token-sale-item">
+                    <h3>NFTs Legatio</h3>
+                    <p><strong>Collection "Legatio Genesis" :</strong> 1 000 NFTs uniques sur Arbitrum.</p>
+                    <p>Prix de Mint : 0.2 ETH</p>
+                    <p>Lancement : Q3 2025.</p>
+                    <p><strong>Avantages :</strong> Frais réduits, accès anticipé, gouvernance.</p>
+                    <a href="#opportunites" class="cta-button" aria-label="Voir les opportunités">Voir les Opportunités</a>
                 </div>
             </div>
         </div>
