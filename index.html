@@ -15,6 +15,64 @@
     <link rel="stylesheet" href="main.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        /* Styles minimaux pour les nouvelles sections */
+        .crypto-prices {
+            text-align: center;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .crypto-prices h2 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+        .crypto-prices p {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+        .simulator-form {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        .simulator-form label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .simulator-form input, .simulator-form select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .simulator-form button {
+            margin-top: 15px;
+        }
+        .hidden {
+            display: none;
+        }
+        .section {
+            padding: 40px 0;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #2c3e50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .cta-button:hover {
+            background: #34495e;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -127,7 +185,15 @@
             </div>
         </div>
 
-        <!-- Calculateur complexe ajouté ici -->
+        <!-- Section des prix en direct -->
+        <div class="section crypto-prices">
+            <h2>Prix en Direct</h2>
+            <p id="btcPrice">Bitcoin: Chargement...</p>
+            <p id="goldPrice">Or: Chargement...</p>
+            <p id="silverPrice">Argent: Chargement...</p>
+        </div>
+
+        <!-- Simulateur de prêt RWA -->
         <section id="simulateur-rwa" class="section">
             <h2>Simulateur de Prêt RWA</h2>
             <p>Calculez votre prêt en fonction de vos actifs tokenisés.</p>
@@ -135,8 +201,8 @@
                 <label>Type de Collatéral :</label>
                 <select id="collateral-type" class="w-full p-2 border rounded">
                     <option value="bitcoin">Bitcoin</option>
-                    <option value="or">Or</option>
-                    <option value="argent">Argent</option>
+                    <option value="pax-gold">Or (PAXG)</option>
+                    <option value="slv-token">Argent (SLV)</option>
                     <option value="immobilier">Immobilier</option>
                 </select>
 
@@ -160,238 +226,38 @@
                 <button onclick="requestLoan()" class="cta-button hidden" id="loan-request-btn">Demander un prêt</button>
             </div>
         </section>
- <!-- Après la section Témoignages -->
 
-    <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Legatio Finance - Investissement Immobilier Tokenisé</title>
-    <meta name="description" content="Legatio Finance : Investissez dans l’immobilier tokenisé dès 100$ avec des rendements passifs en 2025 via la blockchain.">
-    <meta name="keywords" content="immobilier tokenisé, NFTs, staking, prêts crypto, blockchain">
-    <meta name="author" content="Legatio Finance Team">
-    <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="main.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-</head>
-<body>
-    <!-- ... Autres sections inchangées ... -->
-
-    <div class="container">
-        <!-- ... Autres sections ... -->
-
-        <div class="section crypto-prices">
-            <h2>Prix en Direct</h2>
-            <p id="btcPrice">Bitcoin: Chargement...</p>
-            <p id="goldPrice">Or: Chargement...</p>
-            <p id="silverPrice">Argent: Chargement...</p>
+        <div class="section testimonials">
+            <h2>Ils Parlent de Nous</h2>
+            <div class="testimonial-carousel">
+                <p>"Une révolution pour l’immobilier blockchain." - Marc T.</p>
+                <p>"Simple et sécurisé pour diversifier." - Sophie R.</p>
+                <p>"Rendements impressionnants en 6 mois." - Pierre L.</p>
+            </div>
         </div>
 
-        <!-- ... Autres sections ... -->
-    </div>
-
-    <!-- ... Footer inchangé ... -->
-
-    <script>
-        // Animation GSAP et gestion de la modale (inchangé)
-        document.addEventListener("DOMContentLoaded", () => {
-            gsap.from(".section", { opacity: 0, y: 50, duration: 1, stagger: 0.3, scrollTrigger: { trigger: ".section", start: "top 90%" } });
-
-            const buttons = document.querySelectorAll('.cta-button');
-            buttons.forEach(button => {
-                button.addEventListener('click', () => {
-                    gsap.to(button, { scale: 1.1, duration: 0.3, yoyo: true });
-                });
-            });
-
-            const carousel = document.querySelector('.testimonial-carousel');
-            let index = 0;
-            setInterval(() => {
-                gsap.to(carousel.children[index], { opacity: 0, duration: 0.5 });
-                index = (index + 1) % carousel.children.length;
-                gsap.fromTo(carousel.children[index], { opacity: 0 }, { opacity: 1, duration: 0.5 });
-            }, 5000);
-
-            document.querySelector('.back-to-top').addEventListener('click', () => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-
-            const modal = document.getElementById('demo-modal');
-            const openModalBtn = document.getElementById('open-demo-modal');
-            const closeModalBtn = document.getElementById('close-demo-modal');
-            const form = document.getElementById('demo-form');
-            const formMessage = document.getElementById('form-message');
-
-            openModalBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                modal.style.display = 'block';
-                gsap.fromTo(modal, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.3 });
-            });
-
-            closeModalBtn.addEventListener('click', () => {
-                gsap.to(modal, { opacity: 0, scale: 0.9, duration: 0.3, onComplete: () => {
-                    modal.style.display = 'none';
-                    formMessage.style.display = 'none';
-                    form.reset();
-                } });
-            });
-
-            window.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    gsap.to(modal, { opacity: 0, scale: 0.9, duration: 0.3, onComplete: () => {
-                        modal.style.display = 'none';
-                        formMessage.style.display = 'none';
-                        form.reset();
-                    } });
-                }
-            });
-
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const formData = new FormData(form);
-                try {
-                    const response = await fetch(form.action, {
-                        method: 'POST',
-                        body: formData,
-                        headers: { 'Accept': 'application/json' }
-                    });
-                    if (response.ok) {
-                        formMessage.style.display = 'block';
-                        formMessage.style.color = '#2c3e50';
-                        formMessage.textContent = 'Merci ! Nous vous contacterons bientôt.';
-                        form.reset();
-                    } else {
-                        formMessage.style.display = 'block';
-                        formMessage.style.color = '#e74c3c';
-                        formMessage.textContent = 'Une erreur s’est produite. Veuillez réessayer.';
-                    }
-                } catch (error) {
-                    formMessage.style.display = 'block';
-                    formMessage.style.color = '#e74c3c';
-                    formMessage.textContent = 'Une erreur s’est produite. Veuillez réessayer.';
-                }
-            });
-
-            // Nouvelle fonction pour récupérer et afficher les prix en direct
-            async function fetchLivePrices() {
-                try {
-                    // Récupérer les prix de Bitcoin, PAXG (or tokenisé), et SLV (argent tokenisé) via CoinGecko
-                    const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,pax-gold,slv-token&vs_currencies=usd');
-                    const data = await response.json();
-
-                    // Mettre à jour les éléments DOM avec les prix récupérés
-                    document.getElementById('btcPrice').textContent = `Bitcoin: $${data['bitcoin'].usd.toLocaleString('fr-FR', { maximumFractionDigits: 2 })}`;
-                    document.getElementById('goldPrice').textContent = `Or: $${data['pax-gold'].usd.toLocaleString('fr-FR', { maximumFractionDigits: 2 })} / oz`;
-                    document.getElementById('silverPrice').textContent = `Argent: $${data['slv-token'].usd.toLocaleString('fr-FR', { maximumFractionDigits: 2 })} / oz`;
-                } catch (error) {
-                    // Gestion des erreurs (par exemple, API indisponible)
-                    document.getElementById('btcPrice').textContent = 'Bitcoin: Prix indisponible';
-                    document.getElementById('goldPrice').textContent = 'Or: Prix indisponible';
-                    document.getElementById('silverPrice').textContent = 'Argent: Prix indisponible';
-                    console.error('Erreur lors de la récupération des prix:', error);
-                }
-            }
-
-            // Appeler la fonction au chargement de la page
-            fetchLivePrices();
-            // Mettre à jour toutes les 60 secondes
-            setInterval(fetchLivePrices, 60000);
-        });
-
-        // JavaScript pour le calculateur complexe (inchangé sauf si vous voulez synchroniser avec les prix en direct)
-        const prices = {
-            bitcoin: 50000,
-            or: 1800,
-            argent: 25,
-            immobilier: 1000
-        };
-
-        function updateCollateralPrice() {
-            const collateralType = document.getElementById('collateral-type').value;
-            const price = prices[collateralType];
-            document.getElementById('collateral-price').textContent = `$${price.toLocaleString()}`;
-        }
-
-        function calculateLoan() {
-            const collateralType = document.getElementById('collateral-type').value;
-            const collateralAmount = parseFloat(document.getElementById('collateral-amount').value) || 0;
-            const loanDuration = parseFloat(document.getElementById('loan-duration').value) || 0;
-            const interestRate = parseFloat(document.getElementById('interest-rate').value) || 0;
-
-            const collateralValue = collateralAmount * prices[collateralType];
-            const ltv = 0.7;
-            const loanAmount = collateralValue * ltv;
-
-            const monthlyInterestRate = interestRate / 100 / 12;
-            const monthlyPayment = (loanAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -loanDuration));
-            const totalPayment = monthlyPayment * loanDuration;
-            const totalInterest = totalPayment - loanAmount;
-
-            document.getElementById('ltv-value').textContent = `${(ltv * 100).toFixed(0)}%`;
-
-            const resultsDiv = document.getElementById('loan-results');
-            if (collateralAmount > 0 && loanDuration > 0 && interestRate > 0) {
-                resultsDiv.innerHTML = `
-                    <p><strong>Montant du prêt :</strong> $${loanAmount.toLocaleString('en-US', { maximumFractionDigits: 2 })}</p>
-                    <p><strong>Paiement mensuel :</strong> $${monthlyPayment.toLocaleString('en-US', { maximumFractionDigits: 2 })}</p>
-                    <p><strong>Total des intérêts :</strong> $${totalInterest.toLocaleString('en-US', { maximumFractionDigits: 2 })}</p>
-                    <p><strong>Total à rembourser :</strong> $${totalPayment.toLocaleString('en-US', { maximumFractionDigits: 2 })}</p>
-                `;
-                document.getElementById('loan-request-btn').classList.remove('hidden');
-            } else {
-                resultsDiv.innerHTML = '<p style="color: red;">Veuillez remplir tous les champs correctement.</p>';
-                document.getElementById('loan-request-btn').classList.add('hidden');
-            }
-        }
-
-        function requestLoan() {
-            alert('Fonctionnalité de demande de prêt à venir ! Connectez-vous avec MetaMask pour continuer.');
-        }
-
-        document.getElementById('collateral-type').addEventListener('change', updateCollateralPrice);
-        window.onload = updateCollateralPrice;
-    </script>
-</body>
-</html>
-
-<div class="section testimonials">
-    <h2>Ils Parlent de Nous</h2>
-    <div class="testimonial-carousel">
-        <p>"Une révolution pour l’immobilier blockchain." - Marc T.</p>
-        <p>"Simple et sécurisé pour diversifier." - Sophie R.</p>
-        <p>"Rendements impressionnants en 6 mois." - Pierre L.</p>
-    </div>
-</div>
-
-<!-- Nouvelle section Partenaires -->
-<div class="section partners">
-    <h2>Nos Partenaires</h2>
-    <div class="partner-logos">
-        <a href="https://www.lbank.com/" target="_blank" aria-label="Logo LBank" alt="Logo LBank">
-            <svg width="150" height="50" xmlns="http://www.w3.org/2000/svg" class="partner-logo">
-                <rect x="10" y="10" width="30" height="30" fill="#0A66C2" rx="5"/>
-                <text x="18" y="32" font-family="Roboto, sans-serif" font-size="20" font-weight="700" fill="#FFD700">L</text>
-                <rect x="45" y="10" width="30" height="30" fill="#FFD700" rx="5"/>
-                <text x="53" y="32" font-family="Roboto, sans-serif" font-size="20" font-weight="700" fill="#0A66C2">B</text>
-                <text x="80" y="32" font-family="Roboto, sans-serif" font-size="20" font-weight="700" fill="#2c3e50">ank</text>
-            </svg>
-        </a>
-        <a href="https://chain f.link/" target="_blank" aria-label="Logo Chainlink" alt="Logo Chainlink">
-            <svg width="150" height="50" xmlns="http://www.w3.org/2000/svg" class="partner-logo">
-                <polygon points="20,15 35,5 50,15 50,35 35,45 20,35" fill="none" stroke="#375BD2" stroke-width="4"/>
-                <polygon points="25,20 35,14 45,20" fill="#375BD2"/>
-                <text x="60" y="32" font-family="Roboto, sans-serif" font-size="20" font-weight="700" fill="#375BD2">Chainlink</text>
-            </svg>
-        </a>
-    </div>
-    <p class="certifications">Audité par CertiK | Conforme KYC/AML</p>
-</div>
+        <div class="section partners">
+            <h2>Nos Partenaires</h2>
+            <div class="partner-logos">
+                <a href="https://www.lbank.com/" target="_blank" aria-label="Logo LBank" alt="Logo LBank">
+                    <svg width="150" height="50" xmlns="http://www.w3.org/2000/svg" class="partner-logo">
+                        <rect x="10" y="10" width="30" height="30" fill="#0A66C2" rx="5"/>
+                        <text x="18" y="32" font-family="Roboto, sans-serif" font-size="20" font-weight="700" fill="#FFD700">L</text>
+                        <rect x="45" y="10" width="30" height="30" fill="#FFD700" rx="5"/>
+                        <text x="53" y="32" font-family="Roboto, sans-serif" font-size="20" font-weight="700" fill="#0A66C2">B</text>
+                        <text x="80" y="32" font-family="Roboto, sans-serif" font-size="20" font-weight="700" fill="#2c3e50">ank</text>
+                    </svg>
+                </a>
+                <a href="https://chainlink.com/" target="_blank" aria-label="Logo Chainlink" alt="Logo Chainlink">
+                    <svg width="150" height="50" xmlns="http://www.w3.org/2000/svg" class="partner-logo">
+                        <polygon points="20,15 35,5 50,15 50,35 35,45 20,35" fill="none" stroke="#375BD2" stroke-width="4"/>
+                        <polygon points="25,20 35,14 45,20" fill="#375BD2"/>
+                        <text x="60" y="32" font-family="Roboto, sans-serif" font-size="20" font-weight="700" fill="#375BD2">Chainlink</text>
+                    </svg>
+                </a>
+            </div>
+            <p class="certifications">Audité par CertiK | Conforme KYC/AML</p>
+        </div>
 
         <div class="section roadmap">
             <h2>Notre Roadmap</h2>
@@ -499,8 +365,92 @@
     </div>
 
     <script>
-        // Animation GSAP et gestion de la modale
+        // Objet pour stocker les prix en temps réel
+        let livePrices = {
+            'bitcoin': 0,
+            'pax-gold': 0,
+            'slv-token': 0,
+            'immobilier': 1000 // Prix fixe pour l'immobilier
+        };
+
+        // Récupérer les prix en direct via CoinGecko
+        async function fetchLivePrices() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,pax-gold,slv-token&vs_currencies=usd');
+                const data = await response.json();
+
+                livePrices['bitcoin'] = data['bitcoin']?.usd || 0;
+                livePrices['pax-gold'] = data['pax-gold']?.usd || 0;
+                livePrices['slv-token'] = data['slv-token']?.usd || 0;
+
+                document.getElementById('btcPrice').textContent = `Bitcoin: $${livePrices['bitcoin'].toLocaleString('fr-FR', { maximumFractionDigits: 2 })}`;
+                document.getElementById('goldPrice').textContent = `Or: $${livePrices['pax-gold'].toLocaleString('fr-FR', { maximumFractionDigits: 2 })} / oz`;
+                document.getElementById('silverPrice').textContent = `Argent: $${livePrices['slv-token'].toLocaleString('fr-FR', { maximumFractionDigits: 2 })} / oz`;
+
+                updateCollateralPrice();
+            } catch (error) {
+                console.error('Erreur lors de la récupération des prix:', error);
+                document.getElementById('btcPrice').textContent = 'Bitcoin: Prix indisponible';
+                document.getElementById('goldPrice').textContent = 'Or: Prix indisponible';
+                document.getElementById('silverPrice').textContent = 'Argent: Prix indisponible';
+            }
+        }
+
+        // Mettre à jour le prix du collatéral dans le simulateur
+        function updateCollateralPrice() {
+            const collateralType = document.getElementById('collateral-type').value;
+            const price = livePrices[collateralType];
+            document.getElementById('collateral-price').textContent = `$${price.toLocaleString('fr-FR', { maximumFractionDigits: 2 })}`;
+        }
+
+        // Calculer le prêt
+        function calculateLoan() {
+            const collateralType = document.getElementById('collateral-type').value;
+            const collateralAmount = parseFloat(document.getElementById('collateral-amount').value) || 0;
+            const loanDuration = parseFloat(document.getElementById('loan-duration').value) || 0;
+            const interestRate = parseFloat(document.getElementById('interest-rate').value) || 0;
+
+            const collateralValue = collateralAmount * livePrices[collateralType];
+            const ltv = 0.7; // Loan-to-Value ratio fixé à 70%
+            const loanAmount = collateralValue * ltv;
+
+            const monthlyInterestRate = interestRate / 100 / 12;
+            const monthlyPayment = (loanAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -loanDuration));
+            const totalPayment = monthlyPayment * loanDuration;
+            const totalInterest = totalPayment - loanAmount;
+
+            document.getElementById('ltv-value').textContent = `${(ltv * 100).toFixed(0)}%`;
+
+            const resultsDiv = document.getElementById('loan-results');
+            if (collateralAmount > 0 && loanDuration > 0 && interestRate > 0) {
+                resultsDiv.innerHTML = `
+                    <p><strong>Montant du prêt :</strong> $${loanAmount.toLocaleString('fr-FR', { maximumFractionDigits: 2 })}</p>
+                    <p><strong>Paiement mensuel :</strong> $${monthlyPayment.toLocaleString('fr-FR', { maximumFractionDigits: 2 })}</p>
+                    <p><strong>Total des intérêts :</strong> $${totalInterest.toLocaleString('fr-FR', { maximumFractionDigits: 2 })}</p>
+                    <p><strong>Total à rembourser :</strong> $${totalPayment.toLocaleString('fr-FR', { maximumFractionDigits: 2 })}</p>
+                `;
+                document.getElementById('loan-request-btn').classList.remove('hidden');
+            } else {
+                resultsDiv.innerHTML = '<p style="color: red;">Veuillez remplir tous les champs correctement.</p>';
+                document.getElementById('loan-request-btn').classList.add('hidden');
+            }
+        }
+
+        function requestLoan() {
+            alert('Fonctionnalité de demande de prêt à venir ! Connectez-vous avec MetaMask pour continuer.');
+        }
+
+        // Gestion des animations GSAP et événements
         document.addEventListener("DOMContentLoaded", () => {
+            // Initialisation des prix
+            fetchLivePrices();
+            setInterval(fetchLivePrices, 60000); // Mise à jour toutes les 60 secondes
+
+            // Écouteurs pour le simulateur
+            document.getElementById('collateral-type').addEventListener('change', updateCollateralPrice);
+            updateCollateralPrice();
+
+            // Animations GSAP
             gsap.from(".section", { opacity: 0, y: 50, duration: 1, stagger: 0.3, scrollTrigger: { trigger: ".section", start: "top 90%" } });
 
             const buttons = document.querySelectorAll('.cta-button');
@@ -522,6 +472,7 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
 
+            // Gestion de la modale
             const modal = document.getElementById('demo-modal');
             const openModalBtn = document.getElementById('open-demo-modal');
             const closeModalBtn = document.getElementById('close-demo-modal');
@@ -578,77 +529,6 @@
                 }
             });
         });
-
-        // JavaScript pour le calculateur complexe
-        const prices = {
-            bitcoin: 50000,
-            or: 1800,
-            argent: 25,
-            immobilier: 1000
-        };
-
-           // Prix crypto
-        async function fetchPrices() {
-            try {
-                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,gold,ethereum&vs_currencies=usd');
-                const data = await response.json();
-                document.getElementById('btcPrice').textContent = `BTC: $${data.bitcoin?.usd || 'N/A'}`;
-                document.getElementById('goldPrice').textContent = `Or: $${data.gold?.usd || 'N/A'}`;
-                document.getElementById('silverPrice').textContent = `Argent: $${data.ethereum?.usd * 0.05 || 'N/A'}`; // Proxy fictif
-            } catch (error) {
-                console.error("Erreur lors de la récupération des prix:", error);
-                document.getElementById('btcPrice').textContent = 'BTC: N/A';
-                document.getElementById('goldPrice').textContent = 'Or: N/A';
-                document.getElementById('silverPrice').textContent = 'Argent: N/A';
-            }
-        }
-        fetchPrices();
-        setInterval(fetchPrices, 300000); // Mise à jour toutes les 5 minutes
-}
-        function updateCollateralPrice() {
-            const collateralType = document.getElementById('collateral-type').value;
-            const price = prices[collateralType];
-            document.getElementById('collateral-price').textContent = `$${price.toLocaleString()}`;
-        }
-
-        function calculateLoan() {
-            const collateralType = document.getElementById('collateral-type').value;
-            const collateralAmount = parseFloat(document.getElementById('collateral-amount').value) || 0;
-            const loanDuration = parseFloat(document.getElementById('loan-duration').value) || 0;
-            const interestRate = parseFloat(document.getElementById('interest-rate').value) || 0;
-
-            const collateralValue = collateralAmount * prices[collateralType];
-            const ltv = 0.7;
-            const loanAmount = collateralValue * ltv;
-
-            const monthlyInterestRate = interestRate / 100 / 12;
-            const monthlyPayment = (loanAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -loanDuration));
-            const totalPayment = monthlyPayment * loanDuration;
-            const totalInterest = totalPayment - loanAmount;
-
-            document.getElementById('ltv-value').textContent = `${(ltv * 100).toFixed(0)}%`;
-
-            const resultsDiv = document.getElementById('loan-results');
-            if (collateralAmount > 0 && loanDuration > 0 && interestRate > 0) {
-                resultsDiv.innerHTML = `
-                    <p><strong>Montant du prêt :</strong> $${loanAmount.toLocaleString('en-US', { maximumFractionDigits: 2 })}</p>
-                    <p><strong>Paiement mensuel :</strong> $${monthlyPayment.toLocaleString('en-US', { maximumFractionDigits: 2 })}</p>
-                    <p><strong>Total des intérêts :</strong> $${totalInterest.toLocaleString('en-US', { maximumFractionDigits: 2 })}</p>
-                    <p><strong>Total à rembourser :</strong> $${totalPayment.toLocaleString('en-US', { maximumFractionDigits: 2 })}</p>
-                `;
-                document.getElementById('loan-request-btn').classList.remove('hidden');
-            } else {
-                resultsDiv.innerHTML = '<p style="color: red;">Veuillez remplir tous les champs correctement.</p>';
-                document.getElementById('loan-request-btn').classList.add('hidden');
-            }
-        }
-
-        function requestLoan() {
-            alert('Fonctionnalité de demande de prêt à venir ! Connectez-vous avec MetaMask pour continuer.');
-        }
-
-        document.getElementById('collateral-type').addEventListener('change', updateCollateralPrice);
-        window.onload = updateCollateralPrice;
     </script>
 </body>
 </html>
