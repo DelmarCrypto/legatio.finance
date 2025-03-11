@@ -16,6 +16,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
+
+    <script src="script.js"></script>
+
 <body>
     <nav class="navbar">
         <div class="container">
@@ -126,40 +129,75 @@
                 </div>
             </div>
         </div>
-
-        <!-- Calculateur complexe ajouté ici -->
-        <section id="simulateur-rwa" class="section">
-            <h2>Simulateur de Prêt RWA</h2>
-            <p>Calculez votre prêt en fonction de vos actifs tokenisés.</p>
+    
+     <div class="section simulator">
+            <h2>Simulateur de Prêt</h2>
             <div class="simulator-form">
-                <label>Type de Collatéral :</label>
-                <select id="collateral-type" class="w-full p-2 border rounded">
-                    <option value="bitcoin">Bitcoin</option>
-                    <option value="or">Or</option>
-                    <option value="argent">Argent</option>
-                    <option value="immobilier">Immobilier</option>
-                </select>
-
-                <label>Valeur du Collatéral (en unités) :</label>
-                <input type="number" id="collateral-amount" class="w-full p-2 border rounded" placeholder="Ex: 2 BTC">
-
-                <p>Prix actuel : <span id="collateral-price">$0</span></p>
-
-                <label>Durée du Prêt (mois) :</label>
-                <input type="number" id="loan-duration" class="w-full p-2 border rounded" placeholder="Ex: 12">
-
-                <label>Taux d’Intérêt Annuel (%) :</label>
-                <input type="number" id="interest-rate" class="w-full p-2 border rounded" placeholder="Ex: 5">
-
-                <p>Ratio LTV : <span id="ltv-value">0%</span></p>
-
-                <button onclick="calculateLoan()" class="cta-button">Calculer</button>
-
-                <div id="loan-results"></div>
-
-                <button onclick="requestLoan()" class="cta-button hidden" id="loan-request-btn">Demander un prêt</button>
+                <label for="loanAmount">Montant (USDT) :</label>
+                <input type="number" id="loanAmount" value="1000" required>
+                <label for="duration">Durée (mois) :</label>
+                <input type="number" id="duration" value="12" required>
+                <label for="interestRate">Taux (%) :</label>
+                <input type="number" id="interestRate" value="5" required>
+                <button onclick="calculateLoan()" aria-label="Calculer le prêt">Calculer</button>
             </div>
-        </section>
+            <p>Montant total : <span id="totalRepayment">0</span> USDT</p>
+        </div>
+
+        <script>
+    // Prix simulés pour les collatéraux (en USD)
+    const prices = {
+        bitcoin: 50000,
+        or: 1800,
+        argent: 25,
+        immobilier: 1000
+    };
+
+    function updateCollateralPrice() {
+        const collateralType = document.getElementById('collateral-type').value;
+        const price = prices[collateralType];
+        document.getElementById('collateral-price').textContent = `$${price.toLocaleString()}`;
+    }
+
+    function calculateLoan() {
+        const collateralType = document.getElementById('collateral-type').value;
+        const collateralAmount = parseFloat(document.getElementById('collateral-amount').value) || 0;
+        const loanDuration = parseFloat(document.getElementById('loan-duration').value) || 0;
+        const interestRate = parseFloat(document.getElementById('interest-rate').value) || 0;
+
+        const collateralValue = collateralAmount * prices[collateralType];
+        const ltv = 0.7;
+        const loanAmount = collateralValue * ltv;
+
+        const monthlyInterestRate = interestRate / 100 / 12;
+        const monthlyPayment = (loanAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -loanDuration));
+        const totalPayment = monthlyPayment * loanDuration;
+        const totalInterest = totalPayment - loanAmount;
+
+        document.getElementById('ltv-value').textContent = `${(ltv * 100).toFixed(0)}%`;
+
+        const resultsDiv = document.getElementById('loan-results');
+        if (collateralAmount > 0 && loanDuration > 0 && interestRate > 0) {
+            resultsDiv.innerHTML = `
+                <p><strong>Montant du prêt :</strong> $${loanAmount.toLocaleString('en-US', { maximumFractionDigits: 2 })}</p>
+                <p><strong>Paiement mensuel :</strong> $${monthlyPayment.toLocaleString('en-US', { maximumFractionDigits: 2 })}</p>
+                <p><strong>Total des intérêts :</strong> $${totalInterest.toLocaleString('en-US', { maximumFractionDigits: 2 })}</p>
+                <p><strong>Total à rembourser :</strong> $${totalPayment.toLocaleString('en-US', { maximumFractionDigits: 2 })}</p>
+            `;
+            document.getElementById('loan-request-btn').classList.remove('hidden');
+        } else {
+            resultsDiv.innerHTML = '<p class="text-red-600">Veuillez remplir tous les champs correctement.</p>';
+            document.getElementById('loan-request-btn').classList.add('hidden');
+        }
+    }
+
+    function requestLoan() {
+        alert('Fonctionnalité de demande de prêt à venir ! Connectez-vous avec MetaMask pour continuer.');
+    }
+
+    document.getElementById('collateral-type').addEventListener('change', updateCollateralPrice);
+    window.onload = updateCollateralPrice;
+</script>
 
         <div class="section testimonials">
             <h2>Ils Parlent de Nous</h2>
@@ -277,7 +315,6 @@
     </div>
 
     <script>
-        // Animation GSAP et gestion de la modale
         document.addEventListener("DOMContentLoaded", () => {
             gsap.from(".section", { opacity: 0, y: 50, duration: 1, stagger: 0.3, scrollTrigger: { trigger: ".section", start: "top 90%" } });
 
@@ -300,6 +337,7 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
 
+            // Gestion de la modale
             const modal = document.getElementById('demo-modal');
             const openModalBtn = document.getElementById('open-demo-modal');
             const closeModalBtn = document.getElementById('close-demo-modal');
@@ -315,8 +353,8 @@
             closeModalBtn.addEventListener('click', () => {
                 gsap.to(modal, { opacity: 0, scale: 0.9, duration: 0.3, onComplete: () => {
                     modal.style.display = 'none';
-                    formMessage.style.display = 'none';
-                    form.reset();
+                    formMessage.style.display = 'none'; // Réinitialiser le message
+                    form.reset(); // Réinitialiser le formulaire
                 } });
             });
 
@@ -324,26 +362,31 @@
                 if (e.target === modal) {
                     gsap.to(modal, { opacity: 0, scale: 0.9, duration: 0.3, onComplete: () => {
                         modal.style.display = 'none';
-                        formMessage.style.display = 'none';
-                        form.reset();
+                        formMessage.style.display = 'none'; // Réinitialiser le message
+                        form.reset(); // Réinitialiser le formulaire
                     } });
                 }
             });
 
+            // Gestion de la soumission du formulaire
             form.addEventListener('submit', async (e) => {
-                e.preventDefault();
+                e.preventDefault(); // Empêcher la soumission par défaut
+
                 const formData = new FormData(form);
                 try {
                     const response = await fetch(form.action, {
                         method: 'POST',
                         body: formData,
-                        headers: { 'Accept': 'application/json' }
+                        headers: {
+                            'Accept': 'application/json'
+                        }
                     });
+
                     if (response.ok) {
                         formMessage.style.display = 'block';
                         formMessage.style.color = '#2c3e50';
                         formMessage.textContent = 'Merci ! Nous vous contacterons bientôt.';
-                        form.reset();
+                        form.reset(); // Réinitialiser le formulaire après soumission
                     } else {
                         formMessage.style.display = 'block';
                         formMessage.style.color = '#e74c3c';
@@ -357,58 +400,17 @@
             });
         });
 
-        // JavaScript pour le calculateur complexe
-        const prices = {
-            bitcoin: 50000,
-            or: 1800,
-            argent: 25,
-            immobilier: 1000
-        };
-
-        function updateCollateralPrice() {
-            const collateralType = document.getElementById('collateral-type').value;
-            const price = prices[collateralType];
-            document.getElementById('collateral-price').textContent = `$${price.toLocaleString()}`;
-        }
-
         function calculateLoan() {
-            const collateralType = document.getElementById('collateral-type').value;
-            const collateralAmount = parseFloat(document.getElementById('collateral-amount').value) || 0;
-            const loanDuration = parseFloat(document.getElementById('loan-duration').value) || 0;
-            const interestRate = parseFloat(document.getElementById('interest-rate').value) || 0;
-
-            const collateralValue = collateralAmount * prices[collateralType];
-            const ltv = 0.7;
-            const loanAmount = collateralValue * ltv;
-
-            const monthlyInterestRate = interestRate / 100 / 12;
-            const monthlyPayment = (loanAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -loanDuration));
-            const totalPayment = monthlyPayment * loanDuration;
-            const totalInterest = totalPayment - loanAmount;
-
-            document.getElementById('ltv-value').textContent = `${(ltv * 100).toFixed(0)}%`;
-
-            const resultsDiv = document.getElementById('loan-results');
-            if (collateralAmount > 0 && loanDuration > 0 && interestRate > 0) {
-                resultsDiv.innerHTML = `
-                    <p><strong>Montant du prêt :</strong> $${loanAmount.toLocaleString('en-US', { maximumFractionDigits: 2 })}</p>
-                    <p><strong>Paiement mensuel :</strong> $${monthlyPayment.toLocaleString('en-US', { maximumFractionDigits: 2 })}</p>
-                    <p><strong>Total des intérêts :</strong> $${totalInterest.toLocaleString('en-US', { maximumFractionDigits: 2 })}</p>
-                    <p><strong>Total à rembourser :</strong> $${totalPayment.toLocaleString('en-US', { maximumFractionDigits: 2 })}</p>
-                `;
-                document.getElementById('loan-request-btn').classList.remove('hidden');
-            } else {
-                resultsDiv.innerHTML = '<p style="color: red;">Veuillez remplir tous les champs correctement.</p>';
-                document.getElementById('loan-request-btn').classList.add('hidden');
+            let amount = parseFloat(document.getElementById("loanAmount").value);
+            let duration = parseFloat(document.getElementById("duration").value);
+            let rate = parseFloat(document.getElementById("interestRate").value) / 100;
+            if (isNaN(amount) || amount <= 0 || isNaN(duration) || duration <= 0 || isNaN(rate) || rate < 0) {
+                document.getElementById("totalRepayment").innerText = "Entrées invalides";
+                return;
             }
+            let total = amount * (1 + rate * (duration / 12));
+            document.getElementById("totalRepayment").innerText = total.toFixed(2);
         }
-
-        function requestLoan() {
-            alert('Fonctionnalité de demande de prêt à venir ! Connectez-vous avec MetaMask pour continuer.');
-        }
-
-        document.getElementById('collateral-type').addEventListener('change', updateCollateralPrice);
-        window.onload = updateCollateralPrice;
     </script>
 </body>
 </html>
