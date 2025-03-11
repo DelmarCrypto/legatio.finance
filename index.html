@@ -162,12 +162,203 @@
         </section>
  <!-- Après la section Témoignages -->
 
-          <div class="section crypto-prices">
+    <!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legatio Finance - Investissement Immobilier Tokenisé</title>
+    <meta name="description" content="Legatio Finance : Investissez dans l’immobilier tokenisé dès 100$ avec des rendements passifs en 2025 via la blockchain.">
+    <meta name="keywords" content="immobilier tokenisé, NFTs, staking, prêts crypto, blockchain">
+    <meta name="author" content="Legatio Finance Team">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<body>
+    <!-- ... Autres sections inchangées ... -->
+
+    <div class="container">
+        <!-- ... Autres sections ... -->
+
+        <div class="section crypto-prices">
             <h2>Prix en Direct</h2>
-            <p id="btcPrice"></p>
-            <p id="goldPrice"></p>
-            <p id="silverPrice"></p>
+            <p id="btcPrice">Bitcoin: Chargement...</p>
+            <p id="goldPrice">Or: Chargement...</p>
+            <p id="silverPrice">Argent: Chargement...</p>
         </div>
+
+        <!-- ... Autres sections ... -->
+    </div>
+
+    <!-- ... Footer inchangé ... -->
+
+    <script>
+        // Animation GSAP et gestion de la modale (inchangé)
+        document.addEventListener("DOMContentLoaded", () => {
+            gsap.from(".section", { opacity: 0, y: 50, duration: 1, stagger: 0.3, scrollTrigger: { trigger: ".section", start: "top 90%" } });
+
+            const buttons = document.querySelectorAll('.cta-button');
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    gsap.to(button, { scale: 1.1, duration: 0.3, yoyo: true });
+                });
+            });
+
+            const carousel = document.querySelector('.testimonial-carousel');
+            let index = 0;
+            setInterval(() => {
+                gsap.to(carousel.children[index], { opacity: 0, duration: 0.5 });
+                index = (index + 1) % carousel.children.length;
+                gsap.fromTo(carousel.children[index], { opacity: 0 }, { opacity: 1, duration: 0.5 });
+            }, 5000);
+
+            document.querySelector('.back-to-top').addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            const modal = document.getElementById('demo-modal');
+            const openModalBtn = document.getElementById('open-demo-modal');
+            const closeModalBtn = document.getElementById('close-demo-modal');
+            const form = document.getElementById('demo-form');
+            const formMessage = document.getElementById('form-message');
+
+            openModalBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                modal.style.display = 'block';
+                gsap.fromTo(modal, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.3 });
+            });
+
+            closeModalBtn.addEventListener('click', () => {
+                gsap.to(modal, { opacity: 0, scale: 0.9, duration: 0.3, onComplete: () => {
+                    modal.style.display = 'none';
+                    formMessage.style.display = 'none';
+                    form.reset();
+                } });
+            });
+
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    gsap.to(modal, { opacity: 0, scale: 0.9, duration: 0.3, onComplete: () => {
+                        modal.style.display = 'none';
+                        formMessage.style.display = 'none';
+                        form.reset();
+                    } });
+                }
+            });
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const formData = new FormData(form);
+                try {
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: { 'Accept': 'application/json' }
+                    });
+                    if (response.ok) {
+                        formMessage.style.display = 'block';
+                        formMessage.style.color = '#2c3e50';
+                        formMessage.textContent = 'Merci ! Nous vous contacterons bientôt.';
+                        form.reset();
+                    } else {
+                        formMessage.style.display = 'block';
+                        formMessage.style.color = '#e74c3c';
+                        formMessage.textContent = 'Une erreur s’est produite. Veuillez réessayer.';
+                    }
+                } catch (error) {
+                    formMessage.style.display = 'block';
+                    formMessage.style.color = '#e74c3c';
+                    formMessage.textContent = 'Une erreur s’est produite. Veuillez réessayer.';
+                }
+            });
+
+            // Nouvelle fonction pour récupérer et afficher les prix en direct
+            async function fetchLivePrices() {
+                try {
+                    // Récupérer les prix de Bitcoin, PAXG (or tokenisé), et SLV (argent tokenisé) via CoinGecko
+                    const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,pax-gold,slv-token&vs_currencies=usd');
+                    const data = await response.json();
+
+                    // Mettre à jour les éléments DOM avec les prix récupérés
+                    document.getElementById('btcPrice').textContent = `Bitcoin: $${data['bitcoin'].usd.toLocaleString('fr-FR', { maximumFractionDigits: 2 })}`;
+                    document.getElementById('goldPrice').textContent = `Or: $${data['pax-gold'].usd.toLocaleString('fr-FR', { maximumFractionDigits: 2 })} / oz`;
+                    document.getElementById('silverPrice').textContent = `Argent: $${data['slv-token'].usd.toLocaleString('fr-FR', { maximumFractionDigits: 2 })} / oz`;
+                } catch (error) {
+                    // Gestion des erreurs (par exemple, API indisponible)
+                    document.getElementById('btcPrice').textContent = 'Bitcoin: Prix indisponible';
+                    document.getElementById('goldPrice').textContent = 'Or: Prix indisponible';
+                    document.getElementById('silverPrice').textContent = 'Argent: Prix indisponible';
+                    console.error('Erreur lors de la récupération des prix:', error);
+                }
+            }
+
+            // Appeler la fonction au chargement de la page
+            fetchLivePrices();
+            // Mettre à jour toutes les 60 secondes
+            setInterval(fetchLivePrices, 60000);
+        });
+
+        // JavaScript pour le calculateur complexe (inchangé sauf si vous voulez synchroniser avec les prix en direct)
+        const prices = {
+            bitcoin: 50000,
+            or: 1800,
+            argent: 25,
+            immobilier: 1000
+        };
+
+        function updateCollateralPrice() {
+            const collateralType = document.getElementById('collateral-type').value;
+            const price = prices[collateralType];
+            document.getElementById('collateral-price').textContent = `$${price.toLocaleString()}`;
+        }
+
+        function calculateLoan() {
+            const collateralType = document.getElementById('collateral-type').value;
+            const collateralAmount = parseFloat(document.getElementById('collateral-amount').value) || 0;
+            const loanDuration = parseFloat(document.getElementById('loan-duration').value) || 0;
+            const interestRate = parseFloat(document.getElementById('interest-rate').value) || 0;
+
+            const collateralValue = collateralAmount * prices[collateralType];
+            const ltv = 0.7;
+            const loanAmount = collateralValue * ltv;
+
+            const monthlyInterestRate = interestRate / 100 / 12;
+            const monthlyPayment = (loanAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -loanDuration));
+            const totalPayment = monthlyPayment * loanDuration;
+            const totalInterest = totalPayment - loanAmount;
+
+            document.getElementById('ltv-value').textContent = `${(ltv * 100).toFixed(0)}%`;
+
+            const resultsDiv = document.getElementById('loan-results');
+            if (collateralAmount > 0 && loanDuration > 0 && interestRate > 0) {
+                resultsDiv.innerHTML = `
+                    <p><strong>Montant du prêt :</strong> $${loanAmount.toLocaleString('en-US', { maximumFractionDigits: 2 })}</p>
+                    <p><strong>Paiement mensuel :</strong> $${monthlyPayment.toLocaleString('en-US', { maximumFractionDigits: 2 })}</p>
+                    <p><strong>Total des intérêts :</strong> $${totalInterest.toLocaleString('en-US', { maximumFractionDigits: 2 })}</p>
+                    <p><strong>Total à rembourser :</strong> $${totalPayment.toLocaleString('en-US', { maximumFractionDigits: 2 })}</p>
+                `;
+                document.getElementById('loan-request-btn').classList.remove('hidden');
+            } else {
+                resultsDiv.innerHTML = '<p style="color: red;">Veuillez remplir tous les champs correctement.</p>';
+                document.getElementById('loan-request-btn').classList.add('hidden');
+            }
+        }
+
+        function requestLoan() {
+            alert('Fonctionnalité de demande de prêt à venir ! Connectez-vous avec MetaMask pour continuer.');
+        }
+
+        document.getElementById('collateral-type').addEventListener('change', updateCollateralPrice);
+        window.onload = updateCollateralPrice;
+    </script>
+</body>
+</html>
 
 <div class="section testimonials">
     <h2>Ils Parlent de Nous</h2>
