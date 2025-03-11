@@ -107,14 +107,14 @@ body {
 /* Avant / Après */
 .before-after {
     display: flex;
-    flex-wrap: wrap; /* Permet de passer à la ligne si l'espace est insuffisant */
+    flex-wrap: nowrap; /* Changé de wrap à nowrap pour forcer côte à côte */
     gap: 30px;
     justify-content: center;
 }
 
 .before, .after {
     flex: 1;
-    min-width: 300px; /* Largeur minimale pour éviter qu'elles ne soient trop étroites */
+    min-width: 300px;
     background-color: #fff;
     padding: 30px;
     border-radius: 10px;
@@ -140,36 +140,6 @@ body {
 .before ul li, .after ul li {
     margin-bottom: 10px;
     color: #34495e;
-}
-
-/* Responsivité */
-@media (max-width: 768px) {
-    .before-after {
-        flex-direction: row; /* Garde les éléments côte à côte */
-        gap: 20px; /* Réduit l'espace entre les éléments sur mobile si nécessaire */
-    }
-
-    .before, .after {
-        min-width: 250px; /* Ajuste la largeur minimale pour mobile */
-    }
-
-    /* Autres ajustements pour les petits écrans */
-    .navbar ul {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .header-content h1 {
-        font-size: 2rem;
-    }
-
-    .header-content p {
-        font-size: 1rem;
-    }
-
-    .section h2 {
-        font-size: 2rem;
-    }
 }
 
 /* Pourquoi choisir */
@@ -465,9 +435,9 @@ body {
     font-weight: 700;
     transition: all 0.3s ease;
     font-family: 'Roboto', sans-serif;
-    min-width: 220px; /* Ajusté pour une largeur uniforme */
+    min-width: 220px;
     text-align: center;
-    white-space: nowrap; /* Empêche le texte de passer à la ligne */
+    white-space: nowrap;
 }
 
 .cta-button:hover {
@@ -681,7 +651,17 @@ body {
         width: 200px;
     }
 
-    .before-after, .why-choose-list, .how-to-invest-steps, .service-list, .timeline, .testimonial-carousel, .faq-list {
+    /* Suppression de la règle qui forçait column pour .before-after */
+    .before-after {
+        flex-wrap: wrap; /* Remplace nowrap pour permettre un retour à la ligne si nécessaire */
+        gap: 20px;
+    }
+
+    .before, .after {
+        min-width: 250px; /* Ajuste la largeur minimale pour petits écrans */
+    }
+
+    .why-choose-list, .how-to-invest-steps, .service-list, .timeline, .testimonial-carousel, .faq-list {
         flex-direction: column;
     }
 
@@ -691,6 +671,6 @@ body {
     }
 
     .investor-buttons .cta-button {
-        min-width: 180px; /* Ajustement pour mobile */
+        min-width: 180px;
     }
 }
