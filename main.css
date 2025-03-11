@@ -1,4 +1,4 @@
-/* Réinitialisation de base */
+/* Reset des styles par défaut */
 * {
     margin: 0;
     padding: 0;
@@ -6,10 +6,69 @@
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Lora', serif;
+    background-color: #ecf0f1;
+    color: #34495e;
     line-height: 1.6;
-    color: #333;
-    background-color: #f9f9f9;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #2c3e50;
+    padding: 10px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1rem;
+    transition: color 0.3s;
+}
+
+.navbar a:hover {
+    color: #f1c40f;
+}
+
+/* Header */
+.header {
+    background-color: #2c3e50;
+    color: #fff;
+    text-align: center;
+    padding: 60px 20px;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-content h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.header-content p {
+    font-size: 1.3rem;
+    max-width: 800px;
+    margin: 0 auto 20px;
+}
+
+.header-content .cta-button {
+    font-size: 1.1rem;
+    padding: 12px 30px;
 }
 
 /* Conteneur principal */
@@ -19,102 +78,65 @@ body {
     padding: 0 20px;
 }
 
-/* Navigation */
-.navbar {
-    background-color: #2c3e50;
-    padding: 1rem 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-.navbar ul {
-    list-style: none;
-    display: flex;
-    justify-content: flex-end;
-}
-
-.navbar li {
-    margin-left: 2rem;
-}
-
-.navbar a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 700;
-    transition: color 0.3s;
-}
-
-.navbar a:hover {
-    color: #3498db;
-}
-
-/* En-tête */
-.header {
-    background: linear-gradient(135deg, #3498db, #2c3e50);
-    color: #fff;
-    text-align: center;
-    padding: 4rem 0;
-}
-
-.header-content h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-}
-
-.header-content p {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-}
-
-.cta-button {
-    display: inline-block;
-    background-color: #e74c3c;
-    color: #fff;
-    padding: 0.75rem 1.5rem;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: 700;
-    transition: background-color 0.3s;
-}
-
-.cta-button:hover {
-    background-color: #c0392b;
-}
-
-/* Sections générales */
+/* Sections */
 .section {
-    padding: 3rem 0;
+    padding: 80px 0;
     text-align: center;
+    border-bottom: 1px solid #ddd;
 }
 
 .section h2 {
-    font-family: 'Lora', serif;
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
+    font-size: 2.5rem;
+    font-weight: 700;
     color: #2c3e50;
+    margin-bottom: 40px;
+    position: relative;
 }
 
-.section p {
-    font-size: 1.1rem;
-    color: #666;
+.section h2::after {
+    content: '';
+    width: 50px;
+    height: 3px;
+    background-color: #f1c40f;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-/* Avant et Après */
+/* Avant / Après */
+.before-after {
+    /* Pas besoin de flex ici, on le met sur .before-after-content */
+}
+
 .before-after-content {
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+    flex-direction: row; /* Force explicitement une disposition horizontale */
+    flex-wrap: nowrap; /* Empêche le retour à la ligne */
+    gap: 30px;
+    justify-content: center;
+    align-items: stretch; /* S'assure que les éléments ont la même hauteur */
 }
 
 .before, .after {
-    width: 45%;
-    margin: 1rem 0;
+    flex: 1 1 0; /* Force les éléments à prendre une largeur égale */
+    min-width: 300px; /* Largeur minimale pour éviter qu'ils ne rétrécissent trop */
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    margin: 0; /* Supprime tout marge qui pourrait causer un décalage */
+}
+
+.before:hover, .after:hover {
+    transform: translateY(-5px);
 }
 
 .before h3, .after h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 15px;
 }
 
 .before ul, .after ul {
@@ -122,267 +144,541 @@ body {
     text-align: left;
 }
 
-.before li, .after li {
-    margin: 0.5rem 0;
+.before ul li, .after ul li {
+    margin-bottom: 10px;
+    color: #34495e;
 }
 
-/* Pourquoi Nous Choisir */
+/* Pourquoi choisir */
 .why-choose-list {
     display: flex;
-    justify-content: space-around;
     flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
 }
 
 .why-choose-item {
-    width: 30%;
-    margin: 1rem 0;
+    flex: 1;
+    min-width: 250px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.why-choose-item:hover {
+    transform: translateY(-5px);
 }
 
 .why-choose-item i {
-    color: #3498db;
-    margin-bottom: 1rem;
+    color: #f1c40f;
+    margin-bottom: 15px;
 }
 
 .why-choose-item h3 {
-    font-size: 1.3rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
 }
 
-/* Comment Investir */
+.why-choose-item p {
+    color: #34495e;
+}
+
+/* Comment investir */
 .how-to-invest-steps {
     display: flex;
-    justify-content: space-around;
     flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
 }
 
 .how-to-invest-step {
-    width: 30%;
-    margin: 1rem 0;
+    flex: 1;
+    min-width: 250px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.how-to-invest-step:hover {
+    transform: translateY(-5px);
 }
 
 .how-to-invest-step i {
-    color: #3498db;
-    margin-bottom: 1rem;
+    color: #f1c40f;
+    margin-bottom: 15px;
 }
 
 .how-to-invest-step h3 {
-    font-size: 1.3rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
 }
 
-/* Nos Solutions */
+.how-to-invest-step p {
+    color: #34495e;
+}
+
+/* Nos solutions */
 .service-list {
     display: flex;
-    justify-content: space-around;
     flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
 }
 
 .service-item {
-    width: 30%;
-    margin: 1rem 0;
+    flex: 1;
+    min-width: 250px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.service-item:hover {
+    transform: translateY(-5px);
 }
 
 .service-item i {
-    color: #3498db;
-    margin-bottom: 1rem;
+    color: #f1c40f;
+    margin-bottom: 15px;
 }
 
 .service-item h3 {
-    font-size: 1.3rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
 }
 
-/* Simulateur de Prêt RWA */
-.simulator-form {
-    max-width: 500px;
-    margin: 2rem auto;
+.service-item p {
+    color: #34495e;
+}
+
+/* Simulateur */
+.simulator {
     background-color: #fff;
-    padding: 2rem;
+    padding: 40px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin: 0 20px;
+}
+
+.simulator-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
 .simulator-form label {
-    display: block;
-    font-weight: 700;
-    margin: 1rem 0 0.5rem;
+    font-weight: 600;
     color: #2c3e50;
 }
 
-.simulator-form select, 
 .simulator-form input {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ccc;
+    padding: 10px;
+    border: 1px solid #ddd;
     border-radius: 5px;
-    font-size: 1rem;
+    width: 120px;
+    font-family: 'Roboto', sans-serif;
 }
 
-.simulator-form p {
-    margin: 1rem 0;
-    color: #666;
+.simulator-form button {
+    padding: 10px 20px;
+    background-color: #f1c40f;
+    color: #2c3e50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background-color 0.3s;
 }
 
-.simulator-form .cta-button {
-    width: 100%;
-    margin-top: 1.5rem;
+.simulator-form button:hover {
+    background-color: #d4a017;
 }
 
-#loan-results {
-    margin-top: 1.5rem;
-    text-align: left;
-}
-
-#loan-results p {
-    margin: 0.5rem 0;
-}
-
-.hidden {
-    display: none;
+.simulator p {
+    font-size: 1.2rem;
+    color: #34495e;
 }
 
 /* Témoignages */
+.testimonial-carousel {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 20px;
+    justify-content: center;
+    overflow: hidden;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
 .testimonial-carousel p {
-    font-size: 1.2rem;
-    font-style: italic;
-    margin: 1rem 0;
+    flex: 0 0 300px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    color: #34495e;
+    opacity: 0.3;
+    transition: opacity 0.5s;
+}
+
+.testimonial-carousel p:first-child {
+    opacity: 1;
 }
 
 .certifications {
-    margin-top: 1rem;
-    font-weight: 700;
-    color: #2c3e50;
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    margin-top: 20px;
 }
 
 /* Roadmap */
 .timeline {
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
 }
 
 .timeline-item {
-    width: 23%;
-    margin: 1rem 0;
+    flex: 1;
+    min-width: 250px;
     background-color: #fff;
-    padding: 1rem;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.timeline-item:hover {
+    transform: translateY(-5px);
 }
 
 .timeline-item h3 {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.timeline-item p {
+    color: #34495e;
 }
 
 /* FAQ */
 .faq-list {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
 }
 
 .faq-item {
-    margin: 1rem 0;
+    flex: 1;
+    min-width: 300px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.faq-item:hover {
+    transform: translateY(-5px);
 }
 
 .faq-item h3 {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
 }
 
-/* Pied de page */
-.footer {
+.faq-item p {
+    color: #34495e;
+}
+
+/* Apprendre */
+.learn {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin: 0 20px;
+}
+
+.learn a {
+    color: #f1c40f;
+    text-decoration: none;
+}
+
+.learn a:hover {
+    color: #d4a017;
+}
+
+/* Investisseurs */
+.investor-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #f1c40f;
+    color: #2c3e50;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    font-family: 'Roboto', sans-serif;
+    min-width: 220px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.cta-button:hover {
+    background-color: #d4a017;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(241, 196, 15, 0.3);
+}
+
+/* Restez Informé */
+.stay-informed {
     background-color: #2c3e50;
     color: #fff;
-    padding: 2rem 0;
+    padding: 60px 20px;
     text-align: center;
 }
 
-.footer-content a {
-    color: #3498db;
+.stay-informed p {
+    margin-bottom: 30px;
+}
+
+.stay-informed-actions {
+    margin-top: 20px;
+}
+
+/* Footer */
+.footer {
+    background-color: #1a252f;
+    color: #ecf0f1;
+    padding: 30px 20px;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.social-links {
+    margin-bottom: 10px;
+}
+
+.footer-links {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    color: #f1c40f;
     text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s;
 }
 
-.footer-content a:hover {
-    text-decoration: underline;
+.footer-links a:hover {
+    color: #d4a017;
 }
 
-.social-links i {
-    font-size: 1.5rem;
-    margin: 0 0.5rem;
+.footer-contact p {
+    margin: 0;
 }
 
-.footer-links, .footer-contact {
-    margin: 1rem 0;
+.footer-contact a {
+    color: #f1c40f;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-contact a:hover {
+    color: #d4a017;
 }
 
 .back-to-top {
-    color: #fff;
-    font-size: 1.5rem;
+    display: block;
+    margin-top: 15px;
+    color: #f1c40f;
     text-decoration: none;
+    font-size: 1.5rem;
+    transition: color 0.3s;
+}
+
+.back-to-top:hover {
+    color: #d4a017;
 }
 
 /* Modale */
 .modal {
     display: none;
     position: fixed;
-    top: 0;
+    z-index: 1000;
     left: 0;
+    top: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
 }
 
 .modal-content {
     background-color: #fff;
-    max-width: 500px;
     margin: 10% auto;
-    padding: 2rem;
+    padding: 30px;
     border-radius: 10px;
+    max-width: 500px;
     position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .close-modal {
     position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 1.5rem;
+    top: 15px;
+    right: 20px;
+    color: #2c3e50;
+    font-size: 24px;
+    font-weight: bold;
     cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-modal:hover {
+    color: #f1c40f;
+}
+
+.modal-content h2 {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.modal-content p {
+    color: #34495e;
+    margin-bottom: 20px;
 }
 
 .form-group {
-    margin: 1rem 0;
+    margin-bottom: 20px;
+    text-align: left;
 }
 
 .form-group label {
     display: block;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 5px;
 }
 
-.form-group input, 
+.form-group input,
 .form-group textarea {
     width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ccc;
+    padding: 10px;
+    border: 1px solid #ddd;
     border-radius: 5px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    color: #34495e;
+}
+
+.form-group textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #f1c40f;
+    box-shadow: 0 0 5px rgba(241, 196, 15, 0.3);
+}
+
+/* Styles pour le message de confirmation */
+#form-message.success {
+    background-color: #e8f5e9;
+    padding: 10px;
+    border-radius: 5px;
+    color: #2c3e50;
+}
+
+#form-message.error {
+    background-color: #ffebee;
+    padding: 10px;
+    border-radius: 5px;
+    color: #e74c3c;
 }
 
 /* Responsivité */
 @media (max-width: 768px) {
     .navbar ul {
         flex-direction: column;
+        text-align: center;
+    }
+
+    .header-content h1 {
+        font-size: 2rem;
+    }
+
+    .header-content p {
+        font-size: 1rem;
+    }
+
+    .section h2 {
+        font-size: 2rem;
+    }
+
+    .simulator-form, .learn {
+        flex-direction: column;
         align-items: center;
     }
-    .navbar li {
-        margin: 0.5rem 0;
+
+    .simulator-form input {
+        width: 200px;
     }
-    .before, .after, 
-    .why-choose-item, 
-    .how-to-invest-step, 
-    .service-item, 
-    .timeline-item {
-        width: 100%;
+
+    .before-after-content {
+        flex-direction: row; /* Garde les éléments côte à côte même sur mobile */
+        flex-wrap: wrap; /* Permet un retour à la ligne si nécessaire */
+        gap: 20px;
+    }
+
+    .before, .after {
+        flex: 1 1 0; /* Force les éléments à prendre une largeur égale */
+        min-width: 250px; /* Ajuste la largeur minimale pour petits écrans */
+    }
+
+    .why-choose-list, .how-to-invest-steps, .service-list, .timeline, .testimonial-carousel, .faq-list {
+        flex-direction: column;
+    }
+
+    .modal-content {
+        margin: 20% auto;
+        max-width: 90%;
+    }
+
+    .investor-buttons .cta-button {
+        min-width: 180px;
     }
 }
