@@ -141,6 +141,61 @@
             <p>Montant total : <span id="totalRepayment">0</span> USDT</p>
         </div>
 
+        <script>
+    // Prix simulés pour les collatéraux (en USD)
+    const prices = {
+        bitcoin: 50000,
+        or: 1800,
+        argent: 25,
+        immobilier: 1000
+    };
+
+    function updateCollateralPrice() {
+        const collateralType = document.getElementById('collateral-type').value;
+        const price = prices[collateralType];
+        document.getElementById('collateral-price').textContent = `$${price.toLocaleString()}`;
+    }
+
+    function calculateLoan() {
+        const collateralType = document.getElementById('collateral-type').value;
+        const collateralAmount = parseFloat(document.getElementById('collateral-amount').value) || 0;
+        const loanDuration = parseFloat(document.getElementById('loan-duration').value) || 0;
+        const interestRate = parseFloat(document.getElementById('interest-rate').value) || 0;
+
+        const collateralValue = collateralAmount * prices[collateralType];
+        const ltv = 0.7;
+        const loanAmount = collateralValue * ltv;
+
+        const monthlyInterestRate = interestRate / 100 / 12;
+        const monthlyPayment = (loanAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -loanDuration));
+        const totalPayment = monthlyPayment * loanDuration;
+        const totalInterest = totalPayment - loanAmount;
+
+        document.getElementById('ltv-value').textContent = `${(ltv * 100).toFixed(0)}%`;
+
+        const resultsDiv = document.getElementById('loan-results');
+        if (collateralAmount > 0 && loanDuration > 0 && interestRate > 0) {
+            resultsDiv.innerHTML = `
+                <p><strong>Montant du prêt :</strong> $${loanAmount.toLocaleString('en-US', { maximumFractionDigits: 2 })}</p>
+                <p><strong>Paiement mensuel :</strong> $${monthlyPayment.toLocaleString('en-US', { maximumFractionDigits: 2 })}</p>
+                <p><strong>Total des intérêts :</strong> $${totalInterest.toLocaleString('en-US', { maximumFractionDigits: 2 })}</p>
+                <p><strong>Total à rembourser :</strong> $${totalPayment.toLocaleString('en-US', { maximumFractionDigits: 2 })}</p>
+            `;
+            document.getElementById('loan-request-btn').classList.remove('hidden');
+        } else {
+            resultsDiv.innerHTML = '<p class="text-red-600">Veuillez remplir tous les champs correctement.</p>';
+            document.getElementById('loan-request-btn').classList.add('hidden');
+        }
+    }
+
+    function requestLoan() {
+        alert('Fonctionnalité de demande de prêt à venir ! Connectez-vous avec MetaMask pour continuer.');
+    }
+
+    document.getElementById('collateral-type').addEventListener('change', updateCollateralPrice);
+    window.onload = updateCollateralPrice;
+</script>
+
         <div class="section testimonials">
             <h2>Ils Parlent de Nous</h2>
             <div class="testimonial-carousel">
