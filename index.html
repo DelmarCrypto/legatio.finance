@@ -119,6 +119,25 @@
             background-color: #B8860B;
             border-color: #B8860B;
         }
+        /* Nouveau style pour la section partenaires */
+        .partner-logos {
+            text-align: center;
+            padding: 40px 0;
+            background: #f9f9f9;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .partner-logos span {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            display: block;
+        }
+        .partner-logos .partner-logo {
+            margin: 0 20px;
+            vertical-align: middle;
+        }
     </style>
 </head>
 <body>
@@ -343,6 +362,25 @@
                     <p>Experte en régulation et conformité crypto, assurant l’alignement avec les normes KYC/AML internationales.</p>
                 </div>
             </div>
+        </div>
+
+        <!-- Nouvelle section Nos Partenaires -->
+        <div class="partner-logos">
+            <span>Nos partenaires</span>
+            <a href="https://www.lbank.com/" target="_blank" aria-label="Logo LBank" alt="Logo LBank">
+                <svg width="150" height="50" xmlns="http://www.w3.org/2000/svg" class="partner-logo">
+                    <text x="10" y="35" font-family="sans-serif" font-size="20" fill="#0A66C2">L</text>
+                    <text x="25" y="35" font-family="sans-serif" font-size="20" fill="#FFD700">B</text>
+                    <path d="M28 20 L33 20 L30.5 25 L33 30 L28 30 Z M28 30 L33 30 L30.5 25 L33 20 L28 20" fill="#000000"/>
+                    <text x="40" y="35" font-family="sans-serif" font-size="20" fill="#0A66C2">ank</text>
+                </svg>
+            </a>
+            <a href="https://chain.link/" target="_blank" aria-label="Logo Chainlink" alt="Logo Chainlink">
+                <svg width="150" height="50" xmlns="http://www.w3.org/2000/svg" class="partner-logo">
+                    <polygon points="10,15 25,5 40,15 40,35 25,45 10,35" fill="none" stroke="#375BD2" stroke-width="4"/>
+                    <text x="50" y="35" font-family="sans-serif" font-size="20" fill="#375BD2">Chainlink</text>
+                </svg>
+            </a>
         </div>
 
         <div class="section crypto-prices">
