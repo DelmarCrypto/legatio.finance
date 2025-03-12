@@ -758,26 +758,33 @@
                 }
             });
 
-            // Gestion du formulaire d'inscription (Formspree)
+            // Gestion du formulaire d'inscription (Formspree) avec messages d'erreur détaillés
             document.getElementById('subscribe-form').addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const formData = new FormData(e.target);
+                const subscribeMessage = document.getElementById('subscribe-message');
                 try {
-                    const response = await fetch(e.target.action, { method: 'POST', body: formData });
-                    const subscribeMessage = document.getElementById('subscribe-message');
+                    const response = await fetch(e.target.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: { 'Accept': 'application/json' }
+                    });
                     if (response.ok) {
                         subscribeMessage.style.display = 'block';
                         subscribeMessage.textContent = 'Merci ! Vous êtes inscrit.';
                         e.target.reset();
                     } else {
+                        const errorData = await response.json().catch(() => ({ error: `Erreur HTTP ${response.status}: ${response.statusText}` }));
+                        console.error('Erreur Formspree:', errorData);
                         subscribeMessage.style.display = 'block';
                         subscribeMessage.style.color = '#e74c3c';
-                        subscribeMessage.textContent = 'Erreur. Veuillez réessayer.';
+                        subscribeMessage.textContent = `Erreur : ${errorData.error || `Code ${response.status} - ${response.statusText}. Vérifiez votre compte Formspree.`}`;
                     }
                 } catch (error) {
-                    document.getElementById('subscribe-message').style.display = 'block';
-                    document.getElementById('subscribe-message').style.color = '#e74c3c';
-                    document.getElementById('subscribe-message').textContent = 'Erreur. Veuillez réessayer.';
+                    console.error('Erreur réseau ou CORS:', error);
+                    subscribeMessage.style.display = 'block';
+                    subscribeMessage.style.color = '#e74c3c';
+                    subscribeMessage.textContent = `Erreur : ${error.message || 'Problème de connexion. Vérifiez la console.'}`;
                 }
             });
         });
