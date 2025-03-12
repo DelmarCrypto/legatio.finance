@@ -97,6 +97,27 @@
         #network-status, #error-message { margin-top: 5px; }
         .swap-form { max-width: 400px; margin: 0 auto; padding: 20px; background: #f9f9f9; border-radius: 8px; }
         .swap-form input { margin-bottom: 10px; }
+        .stay-informed-actions form {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+        }
+        .stay-informed-actions input[type="email"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 250px;
+        }
+        .stay-informed-actions .cta-button {
+            background-color: #D4A017;
+            border: 2px solid #D4A017;
+            padding: 10px 20px;
+        }
+        .stay-informed-actions .cta-button:hover {
+            background-color: #B8860B;
+            border-color: #B8860B;
+        }
     </style>
 </head>
 <body>
@@ -389,8 +410,8 @@
 
         <div class="section news">
             <h2>Actualités & Éducation</h2>
-            <p>Découvrez notre formation : <a href="#blog">Comment stocker et sécuriser ses cryptomonnaies ?</a></p>
-            <p><a href="blog.html" class="cta-button">Notre Formation</a></p>
+            <p>Découvrez nos guides : <a href="https://forms.zoho.eu/legatiofinancegm1/form/FormationLegatio" target="_blank">Qu’est-ce que la tokenisation immobilière ?</a></p>
+            <p><a href="https://forms.zoho.eu/legatiofinancegm1/form/FormationLegatio" class="cta-button" target="_blank">S’inscrire à la Formation</a></p>
         </div>
 
         <div id="investors" class="section investors">
@@ -405,9 +426,13 @@
 
         <div class="section stay-informed">
             <h2>Rejoignez la Révolution</h2>
-            <p>Inscrivez-vous pour recevoir nos mises à jour exclusives.</p>
+            <p>Inscrivez-vous pour recevoir des mises à jour exclusives sur le staking $LEG et les NFTs immobiliers.</p>
             <div class="stay-informed-actions">
-                <a href="https://forms.zoho.eu/legatiofinancegm1/form/FormationLegatio" class="cta-button" target="_blank" aria-label="S’inscrire">S’inscrire Maintenant</a>
+                <form id="subscribe-form" action="https://formspree.io/f/mpwpavjj" method="POST">
+                    <input type="email" name="email" placeholder="Votre email" required>
+                    <button type="submit" class="cta-button">S’inscrire Maintenant</button>
+                </form>
+                <p id="subscribe-message" style="display: none; color: #2c3e50; margin-top: 10px;"></p>
             </div>
         </div>
     </div>
@@ -730,6 +755,29 @@
                     formMessage.style.display = 'block';
                     formMessage.style.color = '#e74c3c';
                     formMessage.textContent = 'Une erreur s’est produite. Veuillez réessayer.';
+                }
+            });
+
+            // Gestion du formulaire d'inscription (Formspree)
+            document.getElementById('subscribe-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                try {
+                    const response = await fetch(e.target.action, { method: 'POST', body: formData });
+                    const subscribeMessage = document.getElementById('subscribe-message');
+                    if (response.ok) {
+                        subscribeMessage.style.display = 'block';
+                        subscribeMessage.textContent = 'Merci ! Vous êtes inscrit.';
+                        e.target.reset();
+                    } else {
+                        subscribeMessage.style.display = 'block';
+                        subscribeMessage.style.color = '#e74c3c';
+                        subscribeMessage.textContent = 'Erreur. Veuillez réessayer.';
+                    }
+                } catch (error) {
+                    document.getElementById('subscribe-message').style.display = 'block';
+                    document.getElementById('subscribe-message').style.color = '#e74c3c';
+                    document.getElementById('subscribe-message').textContent = 'Erreur. Veuillez réessayer.';
                 }
             });
         });
