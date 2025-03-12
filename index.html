@@ -464,13 +464,19 @@
                 connectButton.disabled = true;
 
                 // Vérifier si MetaMask est verrouillé
+                console.log("Vérification des comptes existants...");
                 const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+                console.log("Comptes détectés via eth_accounts :", accounts);
+
                 if (accounts.length === 0) {
-                    console.log("MetaMask est verrouillé ou aucun compte n’est connecté");
+                    console.log("Aucun compte actif détecté. Demande de connexion...");
+                    errorMessage.classList.remove('hidden');
+                    errorMessage.textContent = "MetaMask est verrouillé ou aucun compte n’est connecté. Veuillez déverrouiller MetaMask et autoriser la connexion.";
                     // Demander la connexion
                     const newAccounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    console.log("Nouveaux comptes après eth_requestAccounts :", newAccounts);
                     if (newAccounts.length === 0) {
-                        throw new Error("Aucun compte n’a été autorisé.");
+                        throw new Error("Aucun compte n’a été autorisé. Veuillez accepter la connexion dans MetaMask.");
                     }
                     accounts.push(...newAccounts);
                 }
@@ -496,7 +502,9 @@
                 if (error.code === 4001) {
                     errorMessage.textContent = 'Connexion refusée : Vous avez annulé la demande de connexion.';
                 } else if (error.code === -32002) {
-                    errorMessage.textContent = 'Une demande de connexion est déjà en cours. Vérifiez MetaMask.';
+                    errorMessage.textContent = 'Une demande de connexion est déjà en cours. Vérifiez MetaMask et acceptez la demande.';
+                } else if (error.message.includes("No active wallet found")) {
+                    errorMessage.textContent = 'Aucun portefeuille actif trouvé. Veuillez déverrouiller MetaMask ou importer un portefeuille.';
                 } else {
                     errorMessage.textContent = `Erreur : ${error.message || 'Problème inconnu lors de la connexion à MetaMask.'}`;
                 }
