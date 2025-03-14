@@ -639,89 +639,86 @@
             }
         }
 
-        async function connectMetaMask() {
-            const connectButton = document.getElementById('connect-metamask');
-            const loadingSpinner = document.getElementById('loading-spinner');
-            const walletAddress = document.getElementById('wallet-address');
-            const networkStatus = document.getElementById('network-status');
-            const errorMessage = document.getElementById('error-message');
+       async function connectMetaMask() {
+    const connectButton = document.getElementById('connect-metamask');
+    const loadingSpinner = document.getElementById('loading-spinner');
+    const walletAddress = document.getElementById('wallet-address');
+    const networkStatus = document.getElementById('network-status');
+    const errorMessage = document.getElementById('error-message');
 
-            // Réinitialiser les messages
-            walletAddress.classList.add('hidden');
-            networkStatus.classList.add('hidden');
-            errorMessage.classList.add('hidden');
+    walletAddress.classList.add('hidden');
+    networkStatus.classList.add('hidden');
+    errorMessage.classList.add('hidden');
 
-            // Vérification de MetaMask
-            if (!window.ethereum) {
-                console.error("MetaMask non détecté : window.ethereum est undefined");
-                errorMessage.classList.remove('hidden');
-                errorMessage.textContent = "MetaMask n’est pas détecté. Veuillez vérifier que l’extension est installée et activée.";
-                return;
-            }
+    console.log("Démarrage de connectMetaMask()");
+    if (!window.ethereum) {
+        console.error("MetaMask non détecté : window.ethereum est undefined");
+        errorMessage.classList.remove('hidden');
+        errorMessage.textContent = "MetaMask n’est pas détecté. Veuillez vérifier que l’extension est installée et activée.";
+        return;
+    }
 
-            if (!window.ethereum.isMetaMask) {
-                console.error("L'objet window.ethereum n'est pas MetaMask");
-                errorMessage.classList.remove('hidden');
-                errorMessage.textContent = "L’extension détectée n’est pas MetaMask. Veuillez utiliser MetaMask.";
-                return;
-            }
+    if (!window.ethereum.isMetaMask) {
+        console.error("L'objet window.ethereum n'est pas MetaMask");
+        errorMessage.classList.remove('hidden');
+        errorMessage.textContent = "L’extension détectée n’est pas MetaMask. Veuillez utiliser MetaMask.";
+        return;
+    }
 
-            try {
-                loadingSpinner.classList.remove('hidden');
-                connectButton.disabled = true;
+    try {
+        console.log("MetaMask détecté, lancement de la connexion...");
+        loadingSpinner.classList.remove('hidden');
+        connectButton.disabled = true;
 
-                // Ajouter un délai pour s'assurer que MetaMask est prêt
-                console.log("Préparation de la connexion à MetaMask...");
-                await new Promise(resolve => setTimeout(resolve, 100));
+        console.log("Attente avant connexion...");
+        await new Promise(resolve => setTimeout(resolve, 100));
 
-                // Vérifier les comptes existants avant de faire une nouvelle demande
-                console.log("Vérification des comptes existants...");
-                let accounts = await window.ethereum.request({ method: 'eth_accounts' });
-                console.log("Comptes détectés via eth_accounts :", accounts);
+        console.log("Vérification des comptes existants...");
+        let accounts = await window.ethereum.request({ method: 'eth_accounts' });
+        console.log("Comptes détectés via eth_accounts :", accounts);
 
-                if (accounts.length === 0) {
-                    console.log("Aucun compte détecté. Demande de connexion via eth_requestAccounts...");
-                    accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    console.log("Comptes retournés par eth_requestAccounts :", accounts);
-                }
-
-                if (accounts.length === 0) {
-                    throw new Error("Aucun portefeuille actif trouvé ou autorisation refusée.");
-                }
-
-                const account = accounts[0];
-                walletAddress.classList.remove('hidden');
-                walletAddress.textContent = `Adresse connectée : ${account.slice(0, 6)}...${account.slice(-4)}`;
-
-                // Vérification du réseau (Arbitrum One : 0xa4b1)
-                const chainId = await window.ethereum.request({ method: 'eth_chainId' });
-                console.log("Chain ID détecté :", chainId);
-                if (chainId !== '0xa4b1') {
-                    networkStatus.classList.remove('hidden');
-                    networkStatus.textContent = 'Veuillez passer au réseau Arbitrum pour continuer.';
-                    walletAddress.classList.add('hidden');
-                } else {
-                    networkStatus.classList.add('hidden');
-                    connectButton.textContent = 'MetaMask Connecté';
-                }
-            } catch (error) {
-                console.error('Erreur détaillée lors de la connexion à MetaMask:', error);
-                errorMessage.classList.remove('hidden');
-                if (error.code === 4001) {
-                    errorMessage.textContent = 'Connexion refusée : Vous avez annulé la demande de connexion.';
-                } else if (error.code === -32002) {
-                    errorMessage.textContent = 'Une demande de connexion est déjà en cours. Vérifiez MetaMask et acceptez la demande.';
-                    setTimeout(() => connectMetaMask(), 1000);
-                } else if (error.message.includes("Aucun portefeuille actif trouvé") || error.message.includes("User denied account authorization")) {
-                    errorMessage.textContent = 'Aucun portefeuille actif trouvé. Veuillez déverrouiller MetaMask, accepter la demande de connexion dans le pop-up, ou importer un portefeuille.';
-                } else {
-                    errorMessage.textContent = `Erreur : ${error.message || 'Problème inconnu lors de la connexion à MetaMask.'} Consultez la console pour plus de détails.`;
-                }
-            } finally {
-                loadingSpinner.classList.add('hidden');
-                connectButton.disabled = false;
-            }
+        if (accounts.length === 0) {
+            console.log("Aucun compte détecté, demande de connexion via eth_requestAccounts...");
+            accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            console.log("Comptes retournés par eth_requestAccounts :", accounts);
         }
+
+        if (accounts.length === 0) {
+            throw new Error("Aucun portefeuille actif trouvé ou autorisation refusée.");
+        }
+
+        const account = accounts[0];
+        walletAddress.classList.remove('hidden');
+        walletAddress.textContent = `Adresse connectée : ${account.slice(0, 6)}...${account.slice(-4)}`;
+
+        const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+        console.log("Chain ID détecté :", chainId);
+        if (chainId !== '0xa4b1') {
+            networkStatus.classList.remove('hidden');
+            networkStatus.textContent = 'Veuillez passer au réseau Arbitrum pour continuer.';
+            walletAddress.classList.add('hidden');
+        } else {
+            networkStatus.classList.add('hidden');
+            connectButton.textContent = 'MetaMask Connecté';
+        }
+    } catch (error) {
+        console.error('Erreur détaillée lors de la connexion à MetaMask:', error);
+        errorMessage.classList.remove('hidden');
+        if (error.code === 4001) {
+            errorMessage.textContent = 'Connexion refusée : Vous avez annulé la demande de connexion.';
+        } else if (error.code === -32002) {
+            errorMessage.textContent = 'Une demande de connexion est déjà en cours. Vérifiez MetaMask et acceptez la demande.';
+            setTimeout(() => connectMetaMask(), 1000); // Tentative de reconnexion
+        } else if (error.message.includes("Aucun portefeuille actif trouvé") || error.message.includes("User denied account authorization")) {
+            errorMessage.textContent = 'Aucun portefeuille actif trouvé. Veuillez déverrouiller MetaMask, accepter la demande de connexion dans le pop-up, ou importer un portefeuille.';
+        } else {
+            errorMessage.textContent = `Erreur : ${error.message || 'Problème inconnu lors de la connexion à MetaMask.'}`;
+        }
+    } finally {
+        loadingSpinner.classList.add('hidden');
+        connectButton.disabled = false;
+    }
+}
 
         async function swapLEG() {
             if (document.getElementById('connect-metamask').textContent !== 'MetaMask Connecté') {
